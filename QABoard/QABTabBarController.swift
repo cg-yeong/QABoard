@@ -7,4 +7,10 @@
 
 import UIKit
 
-
+class QABTabBarController: UITabBarController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+}
