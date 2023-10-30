@@ -51,6 +51,7 @@
 		C089E2772AEFBC9E0046A2EF /* QABoardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABoardUITests.swift; sourceTree = "<group>"; };
 		C089E2792AEFBC9E0046A2EF /* QABoardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABoardUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C089E2862AEFC3230046A2EF /* QABTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QABTabBarController.swift; sourceTree = "<group>"; };
+		C089E2882AEFCA790046A2EF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +110,7 @@
 				C089E25F2AEFBC9E0046A2EF /* Assets.xcassets */,
 				C089E2612AEFBC9E0046A2EF /* LaunchScreen.storyboard */,
 				C089E2642AEFBC9E0046A2EF /* Info.plist */,
+				C089E2882AEFCA790046A2EF /* README.md */,
 			);
 			path = QABoard;
 			sourceTree = "<group>";
