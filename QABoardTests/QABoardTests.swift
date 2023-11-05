@@ -2,11 +2,10 @@
 //  QABoardTests.swift
 //  QABoardTests
 //
-//  Created by 최근영 on 10/30/23.
+//  Created by raoot0 on 11/4/23.
 //
 
 import XCTest
-@testable import QABoard
 
 final class QABoardTests: XCTestCase {
 
@@ -28,7 +27,7 @@ final class QABoardTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
