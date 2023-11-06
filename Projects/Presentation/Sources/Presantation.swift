@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Snapkit
+import SnapKit
 
 public class PresentationTest {
     public init() {

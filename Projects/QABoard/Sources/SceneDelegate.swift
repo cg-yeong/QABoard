@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import DesignSystem
-import Domain
 import Data
 import Presentation
+import DesignSystem
+import Domain
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
