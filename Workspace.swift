@@ -1,9 +1,5 @@
 import ProjectDescription
-import EnvironmentPlugin
+import ProjectDescriptionHelpers
 
-let workspace = Workspace(
-    name: env.name,
-    projects: [
-        "Projects/App"
-    ]
-)
+let workspace = Workspace(name: "Projects",
+                          projects: Module.allCases.map(\.path))
