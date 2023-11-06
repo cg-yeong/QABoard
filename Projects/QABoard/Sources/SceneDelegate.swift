@@ -8,8 +8,8 @@
 import UIKit
 import DesignSystem
 import Domain
-import Repository
-import Presantation
+import Data
+import Presentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     

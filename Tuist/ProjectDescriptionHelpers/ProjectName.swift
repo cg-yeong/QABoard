@@ -8,7 +8,7 @@
 import ProjectDescription
 
 public enum Module {
-    case app
+    case qaBoard
     // Repository|DataStore
     case data
     
@@ -25,8 +25,8 @@ public enum Module {
 extension Module {
     public var name: String {
         switch self {
-        case .app:
-            return "App"
+        case .qaBoard:
+            return "QABoard"
         case .data:
             return "Data"
         case .presentation:

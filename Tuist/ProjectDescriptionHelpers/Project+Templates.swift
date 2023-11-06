@@ -7,8 +7,8 @@ import ProjectDescription
 
 extension Project {
     
-    static let bundleID = "com.cheonsong"
-    static let iosVersion = "13.0"
+    static let bundleID = "com.root0"
+    static let iosVersion = "14.0"
     
     /// Helper function to create the Project for this ExampleApp
     public static func app(
@@ -95,4 +95,6 @@ public extension TargetDependency {
     static let lottie: TargetDependency          = .external(name: "Lottie")
     static let rxGesture: TargetDependency       = .external(name: "RxGesture")
     static let swiftyJson: TargetDependency      = .external(name: "SwiftyJSON")
+    static let rxRealm: TargetDependency         = .external(name: "RxRealm")
+    static let realm: TargetDependency           = .external(name: "Realm")
 }
