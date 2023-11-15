@@ -56,7 +56,7 @@ extension Project {
                     platform: .iOS,
                     product: product,
                     bundleId: bundleID,
-                    deploymentTarget: .iOS(targetVersion: iosVersion, devices: [.iphone, .ipad]),
+                    deploymentTarget: .iOS(targetVersion: iosVersion, devices: [.iphone]),
                     infoPlist: .file(path: .relativeToRoot("Supporting Files/Info.plist")),
                     sources: ["Sources/**"],
                     resources: resources,
@@ -67,7 +67,7 @@ extension Project {
                     platform: .iOS,
                     product: .unitTests,
                     bundleId: bundleID,
-                    deploymentTarget: .iOS(targetVersion: iosVersion, devices: [.iphone, .ipad]),
+                    deploymentTarget: .iOS(targetVersion: iosVersion, devices: [.iphone]),
                     infoPlist: .file(path: .relativeToRoot("Supporting Files/Info.plist")),
                     sources: "Tests/**",
                     dependencies: [
@@ -95,6 +95,6 @@ public extension TargetDependency {
     static let lottie: TargetDependency          = .external(name: "Lottie")
     static let rxGesture: TargetDependency       = .external(name: "RxGesture")
     static let swiftyJson: TargetDependency      = .external(name: "SwiftyJSON")
-    static let rxRealm: TargetDependency         = .external(name: "RxRealm")
+    static let realmSwift: TargetDependency         = .xcframework(path: .relativeToManifest("Projects/Data/Framework/RealmSwift.xcframework"))
     static let realm: TargetDependency           = .external(name: "Realm")
 }

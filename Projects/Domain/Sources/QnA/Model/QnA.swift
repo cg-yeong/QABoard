@@ -10,10 +10,10 @@ import Foundation
 public struct QnA: Equatable, Codable {
     
     public var question: String
-    public var answers: [String]
+    public var answers: [Int: String]
     public var corrects: [String]
     
-    public init(question: String, answers: [String], corrects: [String]) {
+    public init(question: String, answers: [Int: String], corrects: [String]) {
         self.question = question
         self.answers = answers
         self.corrects = corrects
@@ -35,7 +35,7 @@ public struct QnA: Equatable, Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.question = try container.decode(String.self, forKey: .question)
-        self.answers = try container.decode([String].self, forKey: .answers)
+        self.answers = try container.decode([Int: String].self, forKey: .answers)
         self.corrects = try container.decode([String].self, forKey: .corrects)
     }
 }
