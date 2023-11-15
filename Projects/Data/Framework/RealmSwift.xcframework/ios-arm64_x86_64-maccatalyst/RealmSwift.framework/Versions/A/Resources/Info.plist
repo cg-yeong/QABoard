@@ -33,15 +33,15 @@
 	<key>DTPlatformName</key>
 	<string>macosx</string>
 	<key>DTPlatformVersion</key>
-	<string>14.2</string>
+	<string>14.0</string>
 	<key>DTSDKBuild</key>
-	<string>23C5030d</string>
+	<string>23A334</string>
 	<key>DTSDKName</key>
-	<string>macosx14.2</string>
+	<string>macosx14.0</string>
 	<key>DTXcode</key>
-	<string>1510</string>
+	<string>1500</string>
 	<key>DTXcodeBuild</key>
-	<string>15C5042i</string>
+	<string>15A240d</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.15</string>
 	<key>NSHumanReadableCopyright</key>
