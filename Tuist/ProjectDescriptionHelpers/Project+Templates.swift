@@ -95,6 +95,6 @@ public extension TargetDependency {
     static let lottie: TargetDependency          = .external(name: "Lottie")
     static let rxGesture: TargetDependency       = .external(name: "RxGesture")
     static let swiftyJson: TargetDependency      = .external(name: "SwiftyJSON")
-    static let realmSwift: TargetDependency         = .xcframework(path: .relativeToManifest("Projects/Data/Framework/RealmSwift.xcframework"))
-    static let realm: TargetDependency           = .xcframework(path: .relativeToManifest("Projects/Data/Framework/Realm.xcframework"))
+    static let realmSwift: TargetDependency         = .xcframework(path: .relativeToManifest("Framework/RealmSwift.xcframework"))
+    static let realm: TargetDependency           = .xcframework(path: .relativeToManifest("Framework/Realm.xcframework"))
 }

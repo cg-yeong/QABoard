@@ -3,5 +3,5 @@ import ProjectDescriptionHelpers
 
 let project = Project.framework(
     name: Module.data.name,
-    dependencies: [Module.domain.project] + [.moya, .swiftyJson]
+    dependencies: [Module.domain.project] + [.moya, .swiftyJson, .realm, .realmSwift]
 )
