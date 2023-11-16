@@ -1,3 +1,7 @@
-#  QABoard
+# QABoard
 
-### Memorizing Question & Answer Board
+### Memorizing Question & Answers Board
+
+### Architecture
+ * Clean Architecture: View, Interactor, AppState, Repository ?
+ * TCA: Reducer, Store, Action, State ?
