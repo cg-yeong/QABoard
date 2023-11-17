@@ -29,12 +29,28 @@ struct DBHelper<T: Object> {
     func add(_ object: T) -> Future<T, Error> {
         return Future { promise in
             do {
+                
                 try realm.write {
                     realm.add(object)
                 }
                 promise(.success(object))
             } catch {
                 promise(.failure(DBError.alreadyExist))
+            }
+        }
+    }
+    
+    func add(any object: T) -> Deferred<Future<T, Error>> {
+        return Deferred {
+            Future { promise in
+                do {
+                    try realm.write {
+                        realm.add(object)
+                    }
+                    promise(.success(object))
+                } catch {
+                    promise(.failure(DBError.alreadyExist))
+                }
             }
         }
     }

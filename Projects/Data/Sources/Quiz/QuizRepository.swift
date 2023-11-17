@@ -20,35 +20,39 @@ public class QuizRepository: Domain.QuizRepositoryProtocol {
         self.cancelBag = .init()
     }
     
+    deinit {
+        cancelBag = .init()
+    }
     
-    public func saveQuiz(data: Domain.Quiz) -> Future<Domain.Quiz, Error> {
-        var domainFuture: Future<Domain.Quiz, Error>
+    public func saveQuiz(data: Domain.Quiz) -> AnyPublisher<Domain.Quiz, Error> {
+        
+        var pub: AnyPublisher<Domain.Quiz, Error>!
         storage
             .read { $0.name == "" }
+            .map { $0 }
             .sink { [weak self] quizzes in
                 guard let self = self else { return }
                 if quizzes.isEmpty {
                     // save
-//                    let entity = Quiz_Entity(name: <#T##String#>, qnaList: <#T##List<QuestionAndAnswers>#>, creationAt: <#T##String#>)//data.toentity()
-//                    let asd = self.storage.add(entity).sink { _ in
-//                        
-//                    } receiveValue: { rquiz in
-//                        
-//                    }
+                    let entity = data.toEntity()
+                    pub = self.storage.add(entity).map { $0.toModel() }.eraseToAnyPublisher()
 
                 } else {
                     // update
+                    guard let quiz = quizzes.first else {
+                        print("quiz가 왜 없지???")
+                        return
+                    }
+                    
+                    let updateEntity = data.toEntity()
+                    updateEntity.id = quiz.id
+                    pub = self.storage.update(updateEntity).map { $0.toModel() }.eraseToAnyPublisher()
+                    
                 }
             }
             .store(in: &cancelBag)
         
-        let future: Future<Domain.Quiz, Error>!
-        // DB Process
-        
-        future = Future() { promise in
-//            promise(.success(Quiz(date: Date(), qnas: [])))
-        }
-        return future
+        return pub
     }
     
 }

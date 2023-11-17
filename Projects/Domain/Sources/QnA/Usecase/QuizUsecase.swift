@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 public protocol AddQuizUsecaseProtocol {
-    func write(data: Quiz) -> Future<Quiz, Error>
+    func write(data: Quiz) -> AnyPublisher<Quiz, Error>
 }
 public protocol QuizUsecaseProtocol: AddQuizUsecaseProtocol {}
 
@@ -21,9 +21,10 @@ public class QuizUsecase: QuizUsecaseProtocol {
         self.repository = repository
     }
     
-    public func write(data: Quiz) -> Future<Quiz, Error> {
+    public func write(data: Quiz) -> AnyPublisher<Quiz, Error> {
         return repository.saveQuiz(data: data)
     }
+    
     
     
     

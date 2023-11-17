@@ -20,10 +20,15 @@ class QnA_Entity: Object {
     var answerArray: [Answers] {
         get {
             return answers.map { $0 }
-        } set {
+        } 
+        set {
             answers.removeAll()
             answers.append(objectsIn: newValue)
         }
+    }
+    
+    override init() {
+        super.init()
     }
     
     init(question: String, answers: List<Answers>) {
@@ -31,10 +36,11 @@ class QnA_Entity: Object {
         self.answers = answers
     }
     
-//    convenience init(question: String, answerArray: [Answers]) {
-//        self.question = question
-//        self.answerArray = answerArray
-//    }
+    convenience init(question: String, answerArray: [Answers]) {
+        self.init()
+        self.question = question
+        self.answerArray = answerArray
+    }
 }
 
 class Answers: EmbeddedObject {
@@ -61,16 +67,14 @@ extension QnA_Entity {
 }
 
 extension Domain.QnA {
-//    func toEntity() -> QnA_Entity {
-//        var list = List<Answers>(collection: <#T##RLMCollection#>)
-//        var asd = self.answers.map { (key: Int, value: String) in
-//            return Answers(number: key, answer: value)
-//        }
-//        list.append(objectsIn: asd)
-////        list.append(<#T##object: Answers##Answers#>)
-//        return QnA_Entity(
-//            question: self.question,
-//            answerArray: <#T##[Answers]#>:
-//        )
-//    }
+    func toEntity() -> QnA_Entity {
+        var list: [Answers] = self.answers.map { (key: Int, value: String) in
+            return Answers(number: key, answer: value)
+        }
+        
+        return QnA_Entity(
+            question: self.question,
+            answerArray: list
+        )
+    }
 }
