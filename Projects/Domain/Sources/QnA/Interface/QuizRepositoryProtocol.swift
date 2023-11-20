@@ -12,4 +12,5 @@ public protocol QuizRepositoryProtocol {
     
     func saveQuiz(data: Domain.Quiz) -> AnyPublisher<Domain.Quiz, Error>
     
+    func fetchQuiz(_ query: QuizQuery) -> AnyPublisher<[Domain.Quiz], Never>
 }
