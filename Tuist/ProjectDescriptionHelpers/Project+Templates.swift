@@ -8,7 +8,7 @@ import ProjectDescription
 extension Project {
     
     static let bundleID = "com.root0"
-    static let iosVersion = "14.0"
+    static let iosVersion = "15.0"
     
     /// Helper function to create the Project for this ExampleApp
     public static func app(
