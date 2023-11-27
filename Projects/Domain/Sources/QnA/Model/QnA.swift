@@ -34,3 +34,7 @@ public struct QnA: Equatable, Codable {
         self.answers = try container.decode([Int: String].self, forKey: .answers)
     }
 }
+
+public enum QnaQuery {
+    case contents(String)
+}

@@ -55,4 +55,47 @@ public class QuizRepository: Domain.QuizRepositoryProtocol {
         return pub
     }
     
+    public func fetchQuiz(_ query: Domain.QuizQuery) -> AnyPublisher<[Domain.Quiz], Never> {
+        var pub: AnyPublisher<[Domain.Quiz], Never>!
+        
+        pub = storage.read(query: query.query)
+            .map { entities in entities.map { $0.toModel() } }
+            .eraseToAnyPublisher()
+        
+        return pub
+    }
+    
+}
+
+extension Domain.QuizQuery {
+    var query: (Query<Quiz_Entity>) -> Query<Bool> {
+        switch self {
+        case .name(let name):
+            return { $0.name == name }
+        case .contain(let name, let contents):
+            return { $0.name == name }
+        }
+    }
+}
+//enum QuizQuery {
+//    case quiz
+//    
+//    var query: (Query<Quiz_Entity>) -> Query<Bool> {
+//        switch self {
+//        case .quiz:
+//            return { $0.name == $0. }
+//        }
+//    }
+//}
+
+extension Domain.QnaQuery {
+//    var query: (Query<[QnA_Entity]>) -> Query<Bool> {
+//        switch self {
+//        case .contents(let content):
+////            return { $0.question.contains(content) || $0.answerArray.map { $0 } }
+//            return { entities in
+//                entities.forEach { $0.identifier }
+//            }
+//        }
+//    }
 }

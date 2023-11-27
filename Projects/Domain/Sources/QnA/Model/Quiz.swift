@@ -43,3 +43,8 @@ public struct Quiz: Equatable, Codable {
     }
     
 }
+
+public enum QuizQuery {
+    case name(String)
+    case contain(String, String)
+}
