@@ -85,11 +85,6 @@ struct WriteView: View {
 		Text("write")
 	}
 }
-struct ExamView: View {
-	var body: some View {
-		Text("exam")
-	}
-}
 struct LibraryView: View {
 	var body: some View {
 		Text("library")
