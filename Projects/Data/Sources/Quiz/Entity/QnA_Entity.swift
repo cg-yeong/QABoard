@@ -17,6 +17,8 @@ enum smallAnswersKey: String, RawRepresentable {
 class QnA_Entity: Object {
     @Persisted var question: String = ""
     @Persisted var answers: List<Answers> = .init()
+    @Persisted var score: Int = 0
+    
     var answerArray: [Answers] {
         get {
             return answers.map { $0 }
@@ -31,15 +33,17 @@ class QnA_Entity: Object {
         super.init()
     }
     
-    init(question: String, answers: List<Answers>) {
+    init(question: String, answers: List<Answers>, score: Int) {
         self.question = question
         self.answers = answers
+        self.score = score
     }
     
-    convenience init(question: String, answerArray: [Answers]) {
+    convenience init(question: String, answerArray: [Answers], score: Int) {
         self.init()
         self.question = question
         self.answerArray = answerArray
+        self.score = score
     }
 }
 
@@ -62,7 +66,9 @@ extension QnA_Entity {
         
         return Domain.QnA(
             question: self.question,
-            answers: makeDict)
+            answers: makeDict,
+            score: self.score
+        )
     }
 }
 
@@ -74,7 +80,8 @@ extension Domain.QnA {
         
         return QnA_Entity(
             question: self.question,
-            answerArray: list
+            answerArray: list,
+            score: self.score
         )
     }
 }
