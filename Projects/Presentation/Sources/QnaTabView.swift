@@ -40,16 +40,33 @@ public struct QnaTabView: View {
 		
 		ZStack(alignment: .bottom) {
 			TabView(selection: $selectedTab) {
-				WriteView()
+				Text("write")
 					.tag(0)
 				
-				ExamView()
+				Text("exam")
 					.tag(1)
 				
-				LibraryView()
+				Text("library")
 					.tag(2)
 			}
 		}
+		
+		ZStack {
+			HStack {
+				ForEach(QnaTabItems.allCases, id: \.self) { item in
+					Button {
+						selectedTab = item.rawValue
+					} label: {
+						tabItem(imageName: item.iconName, title: item.title, isActive: selectedTab == item.rawValue)
+					}
+				}
+			}
+			.padding(6)
+		}
+		.frame(height: 70)
+		.background(.purple.opacity(0.2))
+		.clipShape(RoundedRectangle(cornerRadius: 35.0))
+		.padding(.horizontal, 26)
 		
 		//ed
     }
@@ -61,11 +78,12 @@ public extension QnaTabView {
 		
 		HStack(spacing: 10) {
 			Spacer()
-			Image(imageName)
+			Image(systemName: imageName)
 				.resizable()
 				.renderingMode(.template)
 				.foregroundStyle(isActive ? Color.black : .gray)
 				.frame(width: 20, height: 20)
+			
 			if isActive {
 				Text(title)
 					.font(.system(size: 12))
@@ -77,6 +95,8 @@ public extension QnaTabView {
 		.background(isActive ? .purple.opacity(0.4) : .clear)
 		.clipShape(RoundedRectangle(cornerRadius: 30.0))
 	}
+	
+	
 }
 
 
