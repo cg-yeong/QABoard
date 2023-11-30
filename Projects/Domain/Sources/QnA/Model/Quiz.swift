@@ -19,6 +19,26 @@ public struct Quiz: Equatable, Codable {
         case qnas
     }
     
+    public static var `default`: Self {
+        Self.init(
+            name: "기본 예제",
+            creationDate: .now,
+            qnas: [
+                QnA(question: "01. 1번 문제 ㅋㅋ",
+                    answers: [
+                        1: "1번의 소문제 1번의 답",
+                        2: "1번의 소문제 2번의 답"
+                    ]),
+                QnA(question: "02. 2번 문제 ㅎㅎ",
+                    answers: [
+                        1: "2번의 소문제 1번의 답",
+                        2: "2번의 소문제 2번의 답",
+                        3: "2번의 소문제 3번의 답"
+                    ])
+            ]
+        )
+    }
+    
     public init(name: String, creationDate: Date? = nil, qnas: [QnA]) {
         self.name = name
         self.creationDate = creationDate
