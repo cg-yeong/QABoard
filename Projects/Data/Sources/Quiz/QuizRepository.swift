@@ -11,21 +11,21 @@ import Combine
 import RealmSwift
 
 public class QuizRepository: Domain.QuizRepositoryProtocol {
-    
-    let storage: DBHelper<Quiz_Entity>
+
+    let storage: DBHelper<QuizEntity>
     private var cancelBag: Set<AnyCancellable>!
-    
+
     public init() {
         self.storage = .init()
         self.cancelBag = .init()
     }
-    
+
     deinit {
         cancelBag = .init()
     }
-    
+
     public func saveQuiz(data: Domain.Quiz) -> AnyPublisher<Domain.Quiz, Error> {
-        
+
         var pub: AnyPublisher<Domain.Quiz, Error>!
         storage
             .read { $0.name == "" }
@@ -43,50 +43,49 @@ public class QuizRepository: Domain.QuizRepositoryProtocol {
                         print("quiz가 왜 없지???")
                         return
                     }
-                    
+
                     let updateEntity = data.toEntity()
                     updateEntity.id = quiz.id
                     pub = self.storage.update(updateEntity).map { $0.toModel() }.eraseToAnyPublisher()
-                    
+
                 }
             }
             .store(in: &cancelBag)
-        
+
         return pub
     }
-    
+
     public func fetchQuiz(_ query: Domain.QuizQuery) -> AnyPublisher<[Domain.Quiz], Never> {
         var pub: AnyPublisher<[Domain.Quiz], Never>!
-        
+
         pub = storage.read(query: query.query)
             .map { entities in entities.map { $0.toModel() } }
             .eraseToAnyPublisher()
-        
         return pub
     }
-    
+
 }
 
 extension Domain.QuizQuery {
-    var query: (Query<Quiz_Entity>) -> Query<Bool> {
+    var query: (Query<QuizEntity>) -> Query<Bool> {
         switch self {
         case .name(let name):
             return { $0.name == name }
-        case .contain(let name, let contents):
+        case .contain(let name, _):
             return { $0.name == name }
         }
     }
 }
-//enum QuizQuery {
-//    case quiz
-//    
-//    var query: (Query<Quiz_Entity>) -> Query<Bool> {
-//        switch self {
-//        case .quiz:
-//            return { $0.name == $0. }
-//        }
-//    }
-//}
+// enum QuizQuery {
+//     case quiz
+//
+//     var query: (Query<Quiz_Entity>) -> Query<Bool> {
+//         switch self {
+//         case .quiz:
+//             return { $0.name == $0. }
+//         }
+//     }
+// }
 
 extension Domain.QnaQuery {
 //    var query: (Query<[QnA_Entity]>) -> Query<Bool> {

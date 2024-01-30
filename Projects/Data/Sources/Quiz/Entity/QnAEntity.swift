@@ -10,11 +10,11 @@ import RealmSwift
 
 import Domain
 
-enum smallAnswersKey: String, RawRepresentable {
+enum SmallAnswersKey: String, RawRepresentable {
     case one = "1."
 }
 
-class QnA_Entity: Object {
+class QnAEntity: Object {
     @Persisted var question: String = ""
     @Persisted var answers: List<Answers> = .init()
     @Persisted var score: Int = 0
@@ -59,7 +59,7 @@ class Answers: EmbeddedObject {
 
 
 
-extension QnA_Entity {
+extension QnAEntity {
     public func toModel() -> Domain.QnA {
         var makeDict: [Int: String] = [:]
         self.answers.forEach { makeDict[$0.number] = $0.answer }
@@ -73,12 +73,12 @@ extension QnA_Entity {
 }
 
 extension Domain.QnA {
-    func toEntity() -> QnA_Entity {
+    func toEntity() -> QnAEntity {
         var list: [Answers] = self.answers.map { (key: Int, value: String) in
             return Answers(number: key, answer: value)
         }
         
-        return QnA_Entity(
+        return QnAEntity(
             question: self.question,
             answerArray: list,
             score: self.score

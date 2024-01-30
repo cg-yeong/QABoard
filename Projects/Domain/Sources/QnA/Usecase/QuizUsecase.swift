@@ -14,18 +14,14 @@ public protocol AddQuizUsecaseProtocol {
 public protocol QuizUsecaseProtocol: AddQuizUsecaseProtocol {}
 
 public class QuizUsecase: QuizUsecaseProtocol {
-    
+
     var repository: QuizRepositoryProtocol
-    
+
     public init(repository: QuizRepositoryProtocol) {
         self.repository = repository
     }
-    
+
     public func write(data: Quiz) -> AnyPublisher<Quiz, Error> {
         return repository.saveQuiz(data: data)
     }
-    
-    
-    
-    
 }

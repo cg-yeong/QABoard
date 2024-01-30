@@ -10,13 +10,13 @@ import RealmSwift
 
 import Domain
 
-class Quiz_Entity: Object {
+class QuizEntity: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name = ""
-    @Persisted var qnaList: List<QnA_Entity>
+    @Persisted var qnaList: List<QnAEntity>
     @Persisted var creationAt: Date
-    
-    var qnaArray: [QnA_Entity] {
+
+    var qnaArray: [QnAEntity] {
         get {
             return qnaList.map { $0 }
         }
@@ -25,18 +25,18 @@ class Quiz_Entity: Object {
             qnaList.append(objectsIn: newValue)
         }
     }
-    
+
     override init() {
         super.init()
     }
-    
-    init(name: String = "", qnaList: List<QnA_Entity>, creationAt: Date) {
+
+    init(name: String = "", qnaList: List<QnAEntity>, creationAt: Date) {
         self.name = name
         self.qnaList = qnaList
         self.creationAt = creationAt
     }
-    
-    convenience init(name: String, qnaArray: [QnA_Entity], creationAt: Date) {
+
+    convenience init(name: String, qnaArray: [QnAEntity], creationAt: Date) {
         self.init()
         self.name = name
         self.qnaArray = qnaArray
@@ -44,7 +44,7 @@ class Quiz_Entity: Object {
     }
 }
 
-extension Quiz_Entity {
+extension QuizEntity {
     public func toModel() -> Domain.Quiz {
         return Domain.Quiz(
             name: self.name,
@@ -55,12 +55,11 @@ extension Quiz_Entity {
 }
 
 extension Domain.Quiz {
-    func toEntity() -> Quiz_Entity {
-        return Quiz_Entity(
+    func toEntity() -> QuizEntity {
+        return QuizEntity(
             name: self.name,
             qnaArray: self.qnas.map { $0.toEntity() },
             creationAt: self.creationDate ?? Date()
         )
     }
 }
-

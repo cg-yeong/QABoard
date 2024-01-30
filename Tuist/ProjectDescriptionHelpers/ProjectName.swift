@@ -20,6 +20,8 @@ public enum Module {
     
     // Design|UI
     case designSystem
+    
+    case thirdpartyLib
 }
 
 extension Module {
@@ -35,6 +37,8 @@ extension Module {
             return "Domain"
         case .designSystem:
             return "DesignSystem"
+        case .thirdpartyLib:
+            return "ThirdpartyLib"
         }
     }
     

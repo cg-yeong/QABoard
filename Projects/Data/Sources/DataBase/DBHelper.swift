@@ -18,18 +18,20 @@ enum DBError: Error {
 
 struct DBHelper<T: Object> {
     private var realm: Realm {
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.root0.QABoard")
+        let container = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.com.root0.QABoard"
+        )
         let realmURL = container?.appending(pathComponent: "default.realm")
         let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
         return try! Realm(configuration: config)
     }
-    
+
     init() {}
-    
+
     func add(_ object: T) -> Future<T, Error> {
         return Future { promise in
             do {
-                
+
                 try realm.write {
                     realm.add(object)
                 }
@@ -39,7 +41,7 @@ struct DBHelper<T: Object> {
             }
         }
     }
-    
+
     func add(any object: T) -> Deferred<Future<T, Error>> {
         return Deferred {
             Future { promise in
@@ -54,7 +56,7 @@ struct DBHelper<T: Object> {
             }
         }
     }
-    
+
     func update(_ object: T) -> Future<T, Error> {
         return Future { promise in
             do {

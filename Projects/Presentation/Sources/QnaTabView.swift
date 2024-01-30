@@ -11,7 +11,7 @@ public enum QnaTabItems: Int, CaseIterable {
 	case write = 0
 	case exam
 	case library
-	
+
 	var title: String {
 		switch self {
 		case .write: return "write"
@@ -19,7 +19,7 @@ public enum QnaTabItems: Int, CaseIterable {
 		case .library: return "library"
 		}
 	}
-	
+
 	var iconName: String {
 		switch self {
 		case .write: return "doc.on.doc"
@@ -30,27 +30,27 @@ public enum QnaTabItems: Int, CaseIterable {
 }
 
 public struct QnaTabView: View {
-	
+
 	@State var selectedTab = 0
-	
+
 	public init(selectedTab: Int = 0) {
 		self.selectedTab = selectedTab
 	}
 	public var body: some View {
-		
+
 		ZStack(alignment: .bottom) {
 			TabView(selection: $selectedTab) {
 				Text("write")
 					.tag(0)
-				
+
 				Text("exam")
 					.tag(1)
-				
+
 				Text("library")
 					.tag(2)
 			}
 		}
-		
+
 		ZStack {
 			HStack {
 				ForEach(QnaTabItems.allCases, id: \.self) { item in
@@ -67,15 +67,14 @@ public struct QnaTabView: View {
 		.background(.purple.opacity(0.2))
 		.clipShape(RoundedRectangle(cornerRadius: 35.0))
 		.padding(.horizontal, 26)
-		
-		//ed
+
     }
 }
 
 public extension QnaTabView {
-	///https://medium.com/geekculture/custom-tabbar-in-swiftui-4d239410ee73
+	/// https://medium.com/geekculture/custom-tabbar-in-swiftui-4d239410ee73
 	func tabItem(imageName: String, title: String, isActive: Bool) -> some View {
-		
+
 		HStack(spacing: 10) {
 			Spacer()
 			Image(systemName: imageName)
@@ -83,7 +82,7 @@ public extension QnaTabView {
 				.renderingMode(.template)
 				.foregroundStyle(isActive ? Color.black : .gray)
 				.frame(width: 20, height: 20)
-			
+
 			if isActive {
 				Text(title)
 					.font(.system(size: 12))
@@ -95,10 +94,8 @@ public extension QnaTabView {
 		.background(isActive ? .purple.opacity(0.4) : .clear)
 		.clipShape(RoundedRectangle(cornerRadius: 30.0))
 	}
-	
-	
-}
 
+}
 
 struct WriteView: View {
 	var body: some View {

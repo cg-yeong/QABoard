@@ -1,0 +1,11 @@
+excluded:
+  - "Pods"
+  - "Tuist"
+
+force_cast: warning
+force_try:
+  severity: warning
+
+opt_in_rules:
+  - empty_count
+  
