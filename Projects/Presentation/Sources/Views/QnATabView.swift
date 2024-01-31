@@ -40,7 +40,7 @@ public struct QnaTabView: View {
 
         ZStack(alignment: .bottom) {
             TabView(selection: $selectedTab) {
-                Text("write")
+                WriteQnA()
                     .tag(0)
 
                 Text("exam")

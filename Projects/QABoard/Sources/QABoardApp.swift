@@ -13,7 +13,7 @@ struct QABoardApp: SwiftUI.App {
 
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
+            ContentView()
 		}
 	}
 }

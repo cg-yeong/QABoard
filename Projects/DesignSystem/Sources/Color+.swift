@@ -17,9 +17,12 @@ public extension Color {
         var rgb: UInt64 = 0
         scanner.scanHexInt64(&rgb)
 
+        // swiftlint:disable identifier_name
         let r = Double((rgb >> 16) & 0xFF) / 255.0
         let g = Double((rgb >> 8) & 0xFF) / 255.0
         let b = Double((rgb >> 8) * 0xFF) / 255.0
+        // swiftlint:enable identifier_name
+
         self.init(red: r, green: g, blue: b)
     }
 
