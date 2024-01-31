@@ -32,11 +32,19 @@ struct SmallAnswer: View {
 }
 
 struct WriteQnA: View {
+    var questionNumber = 1
+    @State var question = ""
     @State var number: AnswerNumberKey = .one
     @State var numberOfAnswers = 1
 
     var body: some View {
         VStack(alignment: .leading) {
+            TextField("질문 입력", text: $question)
+                .font(.title2.bold())
+                .foregroundColor(.blue.opacity(0.7))
+                .fixedSize(horizontal: false, vertical: true)
+                .autocorrectionDisabled()
+
             Text("01. \(1.toANumKey) 안녕하세요안녕하세요2안녕하세요3안녕하세요4, \(2.toANumKey) 헬로우잇츠미아델헬로 의 답은 ?")
                 .font(.title2).bold()
                 .foregroundStyle(Color.blue.opacity(0.7))
