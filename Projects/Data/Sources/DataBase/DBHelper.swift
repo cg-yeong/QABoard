@@ -69,7 +69,7 @@ struct DBHelper<T: Object> {
             }
         }
     }
-    
+
     /// DELETE ALL MY QUIZZES -> Empty DataBase
     func deleteAll() -> Future<Void, Error> {
         return Future { promise in
@@ -83,7 +83,7 @@ struct DBHelper<T: Object> {
             }
         }
     }
-    
+
     /// Delete Specific Quiz(QnA...)
     func delete(_ object: T) -> Future<Bool, Error> {
         return Future { promise in
@@ -97,27 +97,27 @@ struct DBHelper<T: Object> {
             }
         }
     }
-    
+
     func read() -> Future<[T], Never> {
         return Future { promise in
             let objects = realm.objects(T.self)
-            
+
             os_log(.debug, "Realm Read; Objects: %@", objects.description)
             promise(.success(Array(objects)))
         }
     }
-    
+
     /// Query: <#T##isIncluded: ((Query<T>) -> Query<Bool>)##((Query<T>) -> Query<Bool>)##(Query<T>) -> Query<Bool>#>)
     func read(query: @escaping (Query<T>) -> Query<Bool>) -> Future<[T], Never> {
-        
+
         return Future { promise in
             let objects = realm.objects(T.self).where(query)
-            
+
             os_log(.debug, "Realm Read With Query; Objects: %@", objects.description)
             promise(.success(Array(objects)))
         }
     }
-    
+
     func lastID() -> Int {
         let objects = realm.objects(T.self)
         return objects.count

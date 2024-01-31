@@ -9,7 +9,7 @@ import ProjectDescriptionHelpers
 
 let project = Project.module(
     name: Module.presentation.name,
-    product: .staticFramework,
+    product: .framework,
     dependencies: [
         Module.domain.project,
         Module.designSystem.project,
