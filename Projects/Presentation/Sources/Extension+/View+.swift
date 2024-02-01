@@ -39,7 +39,7 @@ extension Int {
 
     var toANumKey: String {
         var retStr = ""
-        if self > 0, self < 10 {
+        if self > 0, self < 11 {
             retStr = AnswerNumberKey(rawValue: self)!.key
         } else {
             retStr = "\(self)"

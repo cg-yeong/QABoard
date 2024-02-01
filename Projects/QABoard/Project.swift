@@ -31,7 +31,7 @@ let targets: [Target] = [
         productName: QABoardEnv.appName,
         bundleId: "\(QABoardEnv.organizationName).\(QABoardEnv.targetName)",
         deploymentTargets: QABoardEnv.deploymentTargets,
-        infoPlist: .file(path: .relativeToRoot("Support/Info.plist")),
+        infoPlist: .file(path: .relativeToRoot("Support/QABoard-Info.plist")),
         sources: ["Sources/**"],
         resources: ["Resources/**"],
         entitlements: .file(path: .relativeToRoot("Support/\(QABoardEnv.appName).entitlements")),

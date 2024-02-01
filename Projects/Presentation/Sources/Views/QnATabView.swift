@@ -40,7 +40,7 @@ public struct QnaTabView: View {
 
         ZStack(alignment: .bottom) {
             TabView(selection: $selectedTab) {
-                WriteQnA()
+                WriteQuiz()
                     .tag(0)
 
                 Text("exam")
@@ -90,7 +90,7 @@ public extension QnaTabView {
             }
             Spacer()
         }
-        .frame(width: isActive ? .infinity : 60, height: 60)
+        .frame(width: isActive ? 180 : 60, height: 60)
         .background(isActive ? .purple.opacity(0.4) : .clear)
         .clipShape(RoundedRectangle(cornerRadius: 30.0))
     }
