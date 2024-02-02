@@ -11,44 +11,90 @@ import Combine
 import RealmSwift
 
 public class QuizRepository: Domain.QuizRepositoryProtocol {
-    
-    let storage: DBHelper<Quiz_Entity>
+
+    let storage: DBHelper<QuizEntity>
     private var cancelBag: Set<AnyCancellable>!
-    
+
     public init() {
         self.storage = .init()
         self.cancelBag = .init()
     }
-    
-    
-    public func saveQuiz(data: Domain.Quiz) -> Future<Domain.Quiz, Error> {
-        var domainFuture: Future<Domain.Quiz, Error>
+
+    deinit {
+        cancelBag = .init()
+    }
+
+    public func saveQuiz(data: Domain.Quiz) -> AnyPublisher<Domain.Quiz, Error> {
+
+        var pub: AnyPublisher<Domain.Quiz, Error>!
         storage
             .read { $0.name == "" }
+            .map { $0 }
             .sink { [weak self] quizzes in
                 guard let self = self else { return }
                 if quizzes.isEmpty {
                     // save
-//                    let entity = Quiz_Entity(name: <#T##String#>, qnaList: <#T##List<QuestionAndAnswers>#>, creationAt: <#T##String#>)//data.toentity()
-//                    let asd = self.storage.add(entity).sink { _ in
-//                        
-//                    } receiveValue: { rquiz in
-//                        
-//                    }
+                    let entity = data.toEntity()
+                    pub = self.storage.add(entity).map { $0.toModel() }.eraseToAnyPublisher()
 
                 } else {
                     // update
+                    guard let quiz = quizzes.first else {
+                        print("quiz가 왜 없지???")
+                        return
+                    }
+
+                    let updateEntity = data.toEntity()
+                    updateEntity.id = quiz.id
+                    pub = self.storage.update(updateEntity).map { $0.toModel() }.eraseToAnyPublisher()
+
                 }
             }
             .store(in: &cancelBag)
-        
-        let future: Future<Domain.Quiz, Error>!
-        // DB Process
-        
-        future = Future() { promise in
-//            promise(.success(Quiz(date: Date(), qnas: [])))
-        }
-        return future
+
+        return pub
     }
-    
+
+    public func fetchQuiz(_ query: Domain.QuizQuery) -> AnyPublisher<[Domain.Quiz], Never> {
+        var pub: AnyPublisher<[Domain.Quiz], Never>!
+
+        pub = storage.read(query: query.query)
+            .map { entities in entities.map { $0.toModel() } }
+            .eraseToAnyPublisher()
+        return pub
+    }
+
+}
+
+extension Domain.QuizQuery {
+    var query: (Query<QuizEntity>) -> Query<Bool> {
+        switch self {
+        case .name(let name):
+            return { $0.name == name }
+        case .contain(let name, _):
+            return { $0.name == name }
+        }
+    }
+}
+// enum QuizQuery {
+//     case quiz
+//
+//     var query: (Query<Quiz_Entity>) -> Query<Bool> {
+//         switch self {
+//         case .quiz:
+//             return { $0.name == $0. }
+//         }
+//     }
+// }
+
+extension Domain.QnaQuery {
+//    var query: (Query<[QnA_Entity]>) -> Query<Bool> {
+//        switch self {
+//        case .contents(let content):
+////            return { $0.question.contains(content) || $0.answerArray.map { $0 } }
+//            return { entities in
+//                entities.forEach { $0.identifier }
+//            }
+//        }
+//    }
 }

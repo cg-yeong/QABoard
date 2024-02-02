@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 public protocol QuizRepositoryProtocol {
-    
-    func saveQuiz(data: Domain.Quiz) -> Future<Quiz, Error>
+
+    func saveQuiz(data: Domain.Quiz) -> AnyPublisher<Domain.Quiz, Error>
+
+    func fetchQuiz(_ query: QuizQuery) -> AnyPublisher<[Domain.Quiz], Never>
 }

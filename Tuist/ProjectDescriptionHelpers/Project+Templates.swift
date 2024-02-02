@@ -5,13 +5,13 @@ import ProjectDescription
 /// Create your own conventions, e.g: a func that makes sure all shared targets are "static frameworks"
 /// See https://docs.tuist.io/guides/helpers/
 
-extension Project {
+public extension Project {
     
     static let bundleID = "com.root0"
-    static let iosVersion = "14.0"
+    static let iosVersion = "15.0"
     
     /// Helper function to create the Project for this ExampleApp
-    public static func app(
+    static func app(
         name: String,
         dependencies: [TargetDependency] = [],
         resources: ProjectDescription.ResourceFileElements? = nil
@@ -22,6 +22,87 @@ extension Project {
             bundleID: bundleID + "\(name)",
             dependencies: dependencies,
             resources: resources
+        )
+    }
+    
+    static func module(
+        name: String,
+        platform: Platform = .iOS,
+        product: Product,
+        packages: [Package] = [],
+        dependencies: [TargetDependency] = [],
+        sources: SourceFilesList = ["Sources/**"],
+        resources: ResourceFileElements? = nil,
+        infoPlist: InfoPlist = .default
+    ) -> Project {
+        return project(
+            name: name,
+            platform: platform,
+            product: product,
+            packages: packages,
+            dependencies: dependencies,
+            sources: sources,
+            resources: resources,
+            infoPlist: infoPlist
+        )
+    }
+}
+
+public extension Project {
+    static func project(
+        name: String,
+        platform: Platform,
+        product: Product,
+        organizatinoName: String = QABoardEnv.organizationName,
+        packages: [Package] = [],
+        deploymentTargets: DeploymentTargets = .iOS(iosVersion),
+        dependencies: [TargetDependency] = [],
+        sources: SourceFilesList,
+        resources: ResourceFileElements? = nil,
+        infoPlist: InfoPlist
+    ) -> Project {
+        
+        let scripts: [TargetScript] = [.swiftLint]
+        let settings: Settings = .settings(
+            base: QABoardEnv.baseSetting,
+            configurations: [.debug(name: .debug), .release(name: .release)],
+            defaultSettings: .recommended
+        )
+        
+        let appTarget = Target(
+            name: name,
+            destinations: .iOS,
+            product: product,
+            bundleId: "\(organizatinoName).\(name)",
+            deploymentTargets: .iOS(iosVersion),
+            infoPlist: infoPlist,
+            sources: sources,
+            resources: resources,
+            scripts: scripts,
+            dependencies: dependencies
+        )
+        
+        let testTarget = Target(
+            name: "\(name)Tests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "\(organizatinoName).\(name)Tests",
+            deploymentTargets: .iOS(iosVersion),
+            infoPlist: .default,
+            sources: ["Tests/**"],
+            dependencies: [.target(appTarget)]
+        )
+        
+        let targets: [Target] = [appTarget, testTarget]
+        
+        let schemes: [Scheme] = []
+        return Project(
+            name: name,
+            organizationName: organizatinoName,
+            packages: packages,
+            settings: settings,
+            targets: targets,
+            schemes: schemes
         )
     }
 }
@@ -48,34 +129,50 @@ extension Project {
         dependencies: [TargetDependency] = [],
         resources: ProjectDescription.ResourceFileElements? = nil
     ) -> Project {
+        
+        let target = Target(
+            name: name,
+            destinations: .iOS,
+            product: product,
+            bundleId: bundleID,
+            deploymentTargets: .iOS(iosVersion),
+            infoPlist: .file(path: .relativeToRoot("Supporting Files/Info.plist")),
+            sources: ["Sources/**"],
+            resources: resources,
+            scripts: [.swiftLint],
+            dependencies: dependencies
+        )
+        
+        let testTarget = Target(
+            name: "\(name)Tests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "\(bundleID)Tests",
+            deploymentTargets: .iOS(iosVersion),
+            infoPlist: .file(path: .relativeToRoot("Supporting Files/Info.plist")),
+            sources: ["Tests/**"],
+            dependencies: [.target(target)]
+        )
         return Project(
             name: name,
-            targets: [
-                Target(
-                    name: name,
-                    platform: .iOS,
-                    product: product,
-                    bundleId: bundleID,
-                    deploymentTarget: .iOS(targetVersion: iosVersion, devices: [.iphone]),
-                    infoPlist: .file(path: .relativeToRoot("Supporting Files/Info.plist")),
-                    sources: ["Sources/**"],
-                    resources: resources,
-                    dependencies: dependencies
-                ),
-                Target(
-                    name: "\(name)Tests",
-                    platform: .iOS,
-                    product: .unitTests,
-                    bundleId: bundleID,
-                    deploymentTarget: .iOS(targetVersion: iosVersion, devices: [.iphone]),
-                    infoPlist: .file(path: .relativeToRoot("Supporting Files/Info.plist")),
-                    sources: "Tests/**",
-                    dependencies: [
-                        .target(name: "\(name)")
-                    ]
-                )
-            ],
+            targets: [target, testTarget],
             schemes: schemes
+        )
+    }
+}
+
+extension Scheme {
+    static func makeScheme(target: ConfigurationName, name: String) -> Scheme {
+        return Scheme(
+            name: name,
+            shared: true,
+            buildAction: .buildAction(targets: ["\(name)"]),
+            testAction: .targets(["\(name)Tests"], configuration: target, options: .options(coverage: true, codeCoverageTargets: ["\(name)"])),
+            runAction: .runAction(configuration: target),
+            archiveAction: .archiveAction(configuration: target),
+            profileAction: .profileAction(configuration: target),
+            analyzeAction: .analyzeAction(configuration: target)
+            
         )
     }
 }
