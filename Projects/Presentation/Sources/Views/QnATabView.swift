@@ -46,7 +46,7 @@ public struct QnaTabView: View {
                 Text("exam")
                     .tag(1)
 
-                Text("library")
+                ReducingWidthCardCarousel()
                     .tag(2)
             }
         }
