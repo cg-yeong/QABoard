@@ -1,0 +1,19 @@
+{
+    "quiz": [
+        {
+            "questionNumber": 1,
+            "question": "안녕하세요, 안, 녕, 하, 세, 요. ???",
+            "answers": ["안녕하세요", "헬로우", "곤니치와"],
+            "correctAnswers": ["안녕하세요", "헬로", "점심인사"],
+            "score": 10
+        }
+        ,{
+            "questionNumber": 2,
+            "question": "안녕하세요, 안, 녕, 하, 세, 요. ???",
+            "answers": ["안녕하세요", "헬로우", "곤니치와"],
+            "correctAnswers": ["안녕하세요", "헬로", "점심인사"],
+            "score": 10
+        }
+
+    ]
+}

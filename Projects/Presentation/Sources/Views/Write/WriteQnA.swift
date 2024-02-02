@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import DesignSystem
+
 struct SmallAnswer: View {
     var answerNo = 1
     @State var answer: String = ""
@@ -26,6 +28,8 @@ struct SmallAnswer: View {
                 .frame(minHeight: 36, maxHeight: 80)
                 .foregroundColor(.black)
                 .asSmallAnswerEditor()
+                .background(.brown.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             if !answer.isEmpty {
                 Button(action: {
                     answer = ""
@@ -37,12 +41,11 @@ struct SmallAnswer: View {
             }
         }
         .padding(.leading)
-        .background(.brown.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 
 struct WriteQnA: View {
+    @EnvironmentObject var theme: ThemeColor
     var questionNumber = 1
     @State var question = ""
     @State var number: AnswerNumberKey = .one
@@ -54,42 +57,25 @@ struct WriteQnA: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(questionNumber.toQNumkey)
-                .font(.title3.bold())
-            TextEditor(text: $question)
-                .font(.title2.bold())
-                .foregroundColor(.blue)
-                .frame(minHeight: 44, maxHeight: .infinity)
-                .background(question.isEmpty ? .black.opacity(0.05) : .black.opacity(0.01))
-                .asSmallAnswerEditor()
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+            HStack {
+                Text(questionNumber.toQNumkey)
+                    .font(.title.bold())
+                    .foregroundColor(theme.chosen.questionNumber)
+                TextEditor(text: $question)
+                    .font(.title2.bold())
+                    .foregroundColor(.blue)
+                    .frame(minHeight: 44, maxHeight: .infinity)
+                    .background(question.isEmpty ? .black.opacity(0.05) : .black.opacity(0.01))
+                    .asSmallAnswerEditor()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
 
             answers
-
-            HStack {
-                Button(action: {
-                    addSmallAnswer()
-                }, label: {
-                    Spacer()
-                    Image(systemName: "plus.circle")
-                        .tint(.brown)
-                    Spacer()
-                })
-
-                Button(action: {
-                    minusSmallAnswer()
-                }, label: {
-                    Spacer()
-                    Image(systemName: "minus.circle")
-                        .tint(.brown)
-                    Spacer()
-                })
-            }
-            .padding()
+                .padding(.leading)
         }
         .background(.white)
+        .padding()
         .clipShape(RoundedRectangle(cornerRadius: 8))
-        .padding(.horizontal)
 
     }
 
@@ -116,4 +102,6 @@ struct WriteQnA: View {
 
 #Preview {
     WriteQnA()
+        .environmentObject(ThemeColor())
+        .background(Color.gray)
 }

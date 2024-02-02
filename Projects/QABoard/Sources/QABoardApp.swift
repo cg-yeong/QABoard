@@ -7,13 +7,16 @@
 
 import SwiftUI
 import Presentation
+import DesignSystem
 
 @main
 struct QABoardApp: SwiftUI.App {
+    @StateObject var chosenTheme = ThemeColor()
 
 	var body: some Scene {
 		WindowGroup {
             ContentView()
+                .environmentObject(chosenTheme)
 		}
 	}
 }
@@ -21,9 +24,11 @@ struct QABoardApp: SwiftUI.App {
 struct ContentView: View {
 	var body: some View {
 		QnaTabView()
+            .ignoresSafeArea()
 	}
 }
 
 #Preview {
 	ContentView()
+        .environmentObject(ThemeColor())
 }

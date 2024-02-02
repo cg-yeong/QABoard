@@ -10,29 +10,36 @@ import Foundation
 import SwiftUI
 
 public extension Color {
-    init(hex: String) {
-        let scanner = Scanner(string: hex)
-        _ = scanner.scanString("#")
 
-        var rgb: UInt64 = 0
-        scanner.scanHexInt64(&rgb)
+    init(hex: String, opacity: Double = 1.0) {
+        let cleanHex = hex.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "#", with: "")
 
-        // swiftlint:disable identifier_name
-        let r = Double((rgb >> 16) & 0xFF) / 255.0
-        let g = Double((rgb >> 8) & 0xFF) / 255.0
-        let b = Double((rgb >> 8) * 0xFF) / 255.0
-        // swiftlint:enable identifier_name
+        let hex = Int(cleanHex, radix: 16)!
 
-        self.init(red: r, green: g, blue: b)
+        self.init(hex: hex, opacity: opacity)
     }
 
-    init(hex: UInt, alpha: Double = 1) {
+    init(hex: Int, opacity: Double = 1) {
         self.init(
             .sRGB,
             red: Double((hex >> 16) & 0xff) / 255,
             green: Double((hex >> 08) & 0xff) / 255,
             blue: Double((hex >> 00) & 0xff) / 255,
-            opacity: alpha
+            opacity: opacity
+        )
+    }
+
+    /// 간단하게 rgb 설정하기
+    /// - redF: 0 ~ 255
+    /// - greenF: 0 ~ 255
+    /// - blueF: 0 ~ 255
+    /// - alpha: 0 ~ 1
+    init(redF: Double, greenF: Double, blueF: Double, opacity: Double = 1.0) {
+        self.init(
+            red: redF / 255.0,
+            green: greenF / 255.0,
+            blue: blueF / 255.0,
+            opacity: opacity
         )
     }
 }

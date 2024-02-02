@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct WriteQuiz: View {
+    @EnvironmentObject var theme: ThemeColor
     @State var numberOfQuestion = 1
+
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.vertical) {
@@ -36,6 +38,7 @@ struct WriteQuiz: View {
                 }
                 .padding(.horizontal)
             }
+            .background(.green)
         }
 
     }
@@ -45,7 +48,7 @@ struct WriteQuiz: View {
         ForEach(0..<numberOfQuestion, id: \.self) { numKey in
             WriteQnA(numKey + 1)
                 .padding(.vertical)
-                .background(.cyan)
+                .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .id(numKey)
         }
@@ -67,4 +70,5 @@ struct WriteQuiz: View {
 
 #Preview {
     WriteQuiz()
+        .environmentObject(ThemeColor())
 }

@@ -35,20 +35,19 @@ public struct QnaTabView: View {
 
     public init(selectedTab: Int = 0) {
         self.selectedTab = selectedTab
+        UITabBar.appearance().isHidden = true
     }
     public var body: some View {
 
-        ZStack(alignment: .bottom) {
-            TabView(selection: $selectedTab) {
-                WriteQuiz()
-                    .tag(0)
+        TabView(selection: $selectedTab) {
+            WriteQuiz()
+                .tag(0)
 
-                Text("exam")
-                    .tag(1)
+            Text("exam")
+                .tag(1)
 
-                ReducingWidthCardCarousel()
-                    .tag(2)
-            }
+            ReducingWidthCardCarousel()
+                .tag(2)
         }
 
         ZStack {
@@ -110,4 +109,5 @@ struct LibraryView: View {
 
 #Preview {
     QnaTabView()
+        .environmentObject(ThemeColor())
 }
