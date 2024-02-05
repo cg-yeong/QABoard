@@ -8,6 +8,24 @@
 
 import SwiftUI
 
+// MARK: View~Path+
+extension View {
+    @ViewBuilder
+    func viewPosition(completion: @escaping (CGRect) -> Void) -> some View {
+        self.overlay {
+            GeometryReader {
+                let rect = $0.frame(in: .global)
+
+                Color.clear
+                    .preference(key: PositionKey.self, value: rect)
+                    .onPreferenceChange(PositionKey.self, perform: completion)
+            }
+        }
+    }
+}
+
+
+// MARK: ScrollView+, TextEditor+
 extension View {
     func transparentScrolling() -> some View {
         if #available(iOS 16.0, *) {
@@ -18,9 +36,7 @@ extension View {
             })
         }
     }
-}
 
-extension View {
     func asSmallAnswerEditor() -> some View {
         modifier(SmallAnswerTextEditor())
     }

@@ -23,8 +23,7 @@ struct QABoardApp: SwiftUI.App {
 
 struct ContentView: View {
 	var body: some View {
-		QnaTabView()
-            .ignoresSafeArea()
+        QnaTabView(activeTab: .library)
 	}
 }
 
