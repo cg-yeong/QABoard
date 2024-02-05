@@ -10,7 +10,11 @@ import SwiftUI
 
 import DesignSystem
 
-struct SmallAnswer: View {
+protocol Answer {
+    var answerNo: Int { get set }
+    var answer: String { get set }
+}
+struct SmallAnswer: View, Answer {
     var answerNo = 1
     @State var answer: String = ""
 
@@ -23,24 +27,27 @@ struct SmallAnswer: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(answerNo.toANumKey)
-            TextEditor(text: $answer)
-                .font(.system(size: 14))
-                .frame(minHeight: 36, maxHeight: 80)
-                .foregroundColor(.black)
-                .asSmallAnswerEditor()
-                .background(.brown.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-            if !answer.isEmpty {
-                Button(action: {
-                    answer = ""
-                }, label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
-                        .padding(.trailing)
-                })
+            HStack(alignment: .center) {
+                TextEditor(text: $answer)
+                    .transparentScrolling()
+                    .font(.system(size: 14))
+                    .frame(minHeight: 36, maxHeight: 80)
+                    .foregroundColor(.black)
+                    .asSmallAnswerEditor()
+                if !answer.isEmpty {
+                    Button(action: {
+                        answer = ""
+                    }, label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                            .padding(.trailing)
+                    })
+                }
             }
+            .background(.brown.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
-        .padding(.leading)
+//        .padding(.leading)
     }
 }
 
@@ -62,12 +69,15 @@ struct WriteQnA: View {
                     .font(.title.bold())
                     .foregroundColor(theme.chosen.questionNumber)
                 TextEditor(text: $question)
+                    .transparentScrolling()
                     .font(.title2.bold())
                     .foregroundColor(.blue)
                     .frame(minHeight: 44, maxHeight: .infinity)
                     .background(question.isEmpty ? .black.opacity(0.05) : .black.opacity(0.01))
                     .asSmallAnswerEditor()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+//                    .scrollIndicators(.hidden)
+
             }
 
             answers

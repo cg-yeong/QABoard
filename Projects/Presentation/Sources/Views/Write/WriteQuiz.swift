@@ -13,7 +13,7 @@ struct WriteQuiz: View {
     @State var numberOfQuestion = 1
 
     var body: some View {
-        ScrollViewReader { proxy in
+        ScrollViewReader { _ in
             ScrollView(.vertical) {
                 Spacer()
                 quiz
@@ -38,7 +38,6 @@ struct WriteQuiz: View {
                 }
                 .padding(.horizontal)
             }
-            .background(.green)
         }
 
     }
@@ -70,5 +69,6 @@ struct WriteQuiz: View {
 
 #Preview {
     WriteQuiz()
+        .background(.green)
         .environmentObject(ThemeColor())
 }

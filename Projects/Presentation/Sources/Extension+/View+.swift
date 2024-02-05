@@ -25,18 +25,8 @@ extension View {
 }
 
 
-// MARK: ScrollView+, TextEditor+
-extension View {
-    func transparentScrolling() -> some View {
-        if #available(iOS 16.0, *) {
-            return scrollContentBackground(.hidden)
-        } else {
-            return onAppear(perform: {
-                UITextView.appearance().backgroundColor = .clear
-            })
-        }
-    }
 
+extension View {
     func asSmallAnswerEditor() -> some View {
         modifier(SmallAnswerTextEditor())
     }

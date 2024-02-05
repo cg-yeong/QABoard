@@ -8,6 +8,54 @@
 
 import SwiftUI
 
+public struct QneiTabItem: View {
+    var tint: Color
+    var inactiveTint: Color
+    var tab: QneiTab
+    var animation: Namespace.ID
+    @Binding var activeTab: QneiTab
+    @Binding var postion: CGPoint
+
+    @State private var tabPos: CGPoint = .zero
+    public var body: some View {
+        VStack(alignment: .center, spacing: 5) {
+            Image(systemName: tab.iconName)
+                .font(.title2)
+                .foregroundStyle(activeTab == tab ? .white : inactiveTint)
+                /// 선택된 탭은 크기 키워주기
+                .frame(width: activeTab == tab ? 58 : 35, height: activeTab == tab ? 58 : 35)
+                .background {
+                    if activeTab == tab {
+                        Circle()
+                            .fill(LinearGradient(colors: [tint, .cyan], startPoint: .top, endPoint: .bottom))
+                            .matchedGeometryEffect(id: "ACTIVETAB", in: animation)
+                    }
+                }
+
+            Text(tab.rawValue)
+                .font(.caption)
+                .foregroundStyle(activeTab == tab ? tint : .gray)
+        }
+        .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
+        .viewPosition { rect in
+            tabPos.x = rect.midX
+
+            if activeTab == tab {
+                postion.x = rect.midX
+            }
+        }
+        .onTapGesture {
+            activeTab = tab
+
+            withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.7, blendDuration: 0.7)) {
+                postion.x = tabPos.x
+            }
+        }
+    }
+
+}
+
 struct QneiTabShape: Shape {
     var midPoint: CGFloat
 
@@ -22,11 +70,11 @@ struct QneiTabShape: Shape {
             /// Now Drawing Upward Curve Shape
             path.move(to: .init(x: midPoint - 60, y: 0))
 
-            let to = CGPoint(x: midPoint, y: -25)
+            let to1 = CGPoint(x: midPoint, y: -25)
             let control1 = CGPoint(x: midPoint - 25, y: 0)
             let control2 = CGPoint(x: midPoint - 25, y: -25)
 
-            path.addCurve(to: to, control1: control1, control2: control2)
+            path.addCurve(to: to1, control1: control1, control2: control2)
 
             let to2 = CGPoint(x: midPoint + 60, y: 0)
             let control3 = CGPoint(x: midPoint + 25, y: -25)

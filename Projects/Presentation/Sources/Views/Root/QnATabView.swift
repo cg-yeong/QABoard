@@ -7,53 +7,6 @@
 
 import SwiftUI
 
-public struct QneiTabItem: View {
-    var tint: Color
-    var inactiveTint: Color
-    var tab: QneiTab
-    var animation: Namespace.ID
-    @Binding var activeTab: QneiTab
-    @Binding var postion: CGPoint
-
-    @State private var tabPos: CGPoint = .zero
-    public var body: some View {
-        VStack(alignment: .center, spacing: 5) {
-            Image(systemName: tab.iconName)
-                .font(.title2)
-                .foregroundStyle(activeTab == tab ? .white : inactiveTint)
-                /// 선택된 탭은 크기 키워주기
-                .frame(width: activeTab == tab ? 58 : 35, height: activeTab == tab ? 58 : 35)
-                .background {
-                    if activeTab == tab {
-                        Circle()
-                            .fill(LinearGradient(colors: [tint, .cyan], startPoint: .top, endPoint: .bottom))
-                            .matchedGeometryEffect(id: "ACTIVETAB", in: animation)
-                    }
-                }
-
-            Text(tab.rawValue)
-                .font(.caption)
-                .foregroundStyle(activeTab == tab ? tint : .gray)
-        }
-        .frame(maxWidth: .infinity)
-        .contentShape(Rectangle())
-        .viewPosition { rect in
-            tabPos.x = rect.midX
-
-            if activeTab == tab {
-                postion.x = rect.midX
-            }
-        }
-        .onTapGesture {
-            activeTab = tab
-
-            withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.7, blendDuration: 0.7)) {
-                postion.x = tabPos.x
-            }
-        }
-    }
-}
-
 public struct QnaTabView: View {
 
     @State var activeTab = QneiTab.library
@@ -75,16 +28,25 @@ public struct QnaTabView: View {
         VStack(spacing: 0) {
             TabView(selection: $activeTab,
                     content: {
-                Text("Library").tag(QneiTab.library)
+                ParallaxCarousel().tag(QneiTab.library)
                 Text("Memorize").tag(QneiTab.memorize)
-                Text("Write").tag(QneiTab.write)
+                WriteFeature().tag(QneiTab.write)
                 Text("Exam").tag(QneiTab.exam)
             })
+            .padding(.bottom, -50)
 
             makeQneiTabBar()
         }
     }
 
+    @ViewBuilder
+    public func presentWriteSheet() -> some View {
+//        Color(hex: "#7326d3")
+        Menu("Write Quiz") {
+            Button("+ Quiz", action: {})
+            Button("+ Answer", action: {})
+        }
+    }
 }
 
 public extension QnaTabView {
@@ -92,7 +54,7 @@ public extension QnaTabView {
     /// Custom Tab Bar
     /// With More Easy Customization
     @ViewBuilder
-    func makeQneiTabBar(_ tint: Color = .indigo, _ inactiveTint: Color = .blue) -> some View {
+    func makeQneiTabBar(_ tint: Color = .indigo, _ inactiveTint: Color = .gray) -> some View {
         HStack(alignment: .bottom, spacing: 0) {
             ForEach(QneiTab.allCases, id: \.rawValue) { tab in
                 QneiTabItem(
@@ -133,6 +95,6 @@ struct LibraryView: View {
 }
 
 #Preview {
-    QnaTabView(activeTab: .library)
+    QnaTabView(activeTab: .write)
         .environmentObject(ThemeColor())
 }

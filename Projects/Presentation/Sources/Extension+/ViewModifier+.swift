@@ -12,7 +12,6 @@ import SwiftUI
 struct SmallAnswerTextEditor: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .transparentScrolling()
             .lineSpacing(5)
             .fixedSize(horizontal: false, vertical: true)
             .autocorrectionDisabled()
