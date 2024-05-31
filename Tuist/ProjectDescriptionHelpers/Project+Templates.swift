@@ -69,7 +69,7 @@ public extension Project {
             defaultSettings: .recommended
         )
         
-        let appTarget = Target(
+        let appTarget = Target.target(
             name: name,
             destinations: .iOS,
             product: product,
@@ -82,7 +82,7 @@ public extension Project {
             dependencies: dependencies
         )
         
-        let testTarget = Target(
+        let testTarget = Target.target(
             name: "\(name)Tests",
             destinations: .iOS,
             product: .unitTests,
@@ -130,7 +130,7 @@ extension Project {
         resources: ProjectDescription.ResourceFileElements? = nil
     ) -> Project {
         
-        let target = Target(
+        let target = Target.target(
             name: name,
             destinations: .iOS,
             product: product,
@@ -143,7 +143,7 @@ extension Project {
             dependencies: dependencies
         )
         
-        let testTarget = Target(
+        let testTarget = Target.target(
             name: "\(name)Tests",
             destinations: .iOS,
             product: .unitTests,
@@ -163,7 +163,7 @@ extension Project {
 
 extension Scheme {
     static func makeScheme(target: ConfigurationName, name: String) -> Scheme {
-        return Scheme(
+        return Scheme.scheme(
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
@@ -178,19 +178,11 @@ extension Scheme {
 }
 
 public extension TargetDependency {
-    static let rxSwift: TargetDependency         = .external(name: "RxSwift")
-    static let rxCocoa: TargetDependency         = .external(name: "RxCocoa")
-    static let rxRelay: TargetDependency         = .external(name: "RxRelay")
-    static let rxDataSources: TargetDependency   = .external(name: "RxDataSources")
     static let alamofire: TargetDependency       = .external(name: "Alamofire")
     static let moya: TargetDependency            = .external(name: "Moya")
-    static let rxMoya: TargetDependency          = .external(name: "RxMoya")
     static let snapKit: TargetDependency         = .external(name: "SnapKit")
     static let then: TargetDependency            = .external(name: "Then")
     static let kingfisher: TargetDependency      = .external(name: "Kingfisher")
-    static let rxKeyboard: TargetDependency      = .external(name: "RxKeyboard")
-    static let lottie: TargetDependency          = .external(name: "Lottie")
-    static let rxGesture: TargetDependency       = .external(name: "RxGesture")
     static let swiftyJson: TargetDependency      = .external(name: "SwiftyJSON")
     static let realmSwift: TargetDependency         = .xcframework(path: .relativeToManifest("Framework/RealmSwift.xcframework"))
     static let realm: TargetDependency           = .xcframework(path: .relativeToManifest("Framework/Realm.xcframework"))

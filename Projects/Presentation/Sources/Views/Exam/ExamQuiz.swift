@@ -11,21 +11,25 @@ import SwiftUI
 import Domain
 
 struct ExamQuiz: View {
+    internal init(qCount: Binding<Int>, quiz: Quiz) {
+        self._qCount = qCount
+        self.quiz = quiz
+    }
+    
     @Binding var qCount: Int
     var quiz: Quiz
 
-    init(qCount: Binding<Int>) {
-        self._qCount = qCount
-    }
+
 
     var body: some View {
 
         ForEach(0..<qCount, id: \.self) { qNum in
-            ExamQnA(qNum: qNum, question: <#T##String#>, aCount: <#T##Int#>)
+//            ExamQnA(qNum: qNum, question: <#T##String#>, aCount: <#T##Int#>)
         }
     }
 }
 
 #Preview {
-    ExamQuiz(qCount: .constant(10))
+//    ExamQuiz(qCount: .constant(10), quiz: <#Quiz#>)
+    Text("awef")
 }
