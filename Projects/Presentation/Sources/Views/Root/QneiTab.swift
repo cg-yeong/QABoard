@@ -34,6 +34,7 @@ public struct QneiTabItem: View {
 
             Text(tab.rawValue)
                 .font(.caption)
+                .padding(.top, activeTab == tab ? 0 : 0)
                 .foregroundStyle(activeTab == tab ? tint : .gray)
         }
         .frame(maxWidth: .infinity)

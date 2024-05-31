@@ -10,47 +10,6 @@ import SwiftUI
 
 import DesignSystem
 
-protocol Answer {
-    var answerNo: Int { get set }
-    var answer: String { get set }
-}
-struct SmallAnswer: View, Answer {
-    var answerNo = 1
-    @State var answer: String = ""
-
-    var removeSmallAnswer: (() -> Void)!
-    init(_ answerNo: Int = 1, rmAction: @escaping (() -> Void) = {}) {
-        self.answerNo = answerNo
-        self.removeSmallAnswer = rmAction
-    }
-
-    var body: some View {
-        HStack(alignment: .center) {
-            Text(answerNo.toANumKey)
-            HStack(alignment: .center) {
-                TextEditor(text: $answer)
-                    .transparentScrolling()
-                    .font(.system(size: 14))
-                    .frame(minHeight: 36, maxHeight: 80)
-                    .foregroundColor(.black)
-                    .asSmallAnswerEditor()
-                if !answer.isEmpty {
-                    Button(action: {
-                        answer = ""
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.gray)
-                            .padding(.trailing)
-                    })
-                }
-            }
-            .background(.brown.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-//        .padding(.leading)
-    }
-}
-
 struct WriteQnA: View {
     @EnvironmentObject var theme: ThemeColor
     var questionNumber = 1
@@ -83,8 +42,8 @@ struct WriteQnA: View {
             answers
                 .padding(.leading)
         }
-        .background(.white)
         .padding()
+        .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 8))
 
     }
@@ -92,7 +51,7 @@ struct WriteQnA: View {
     @ViewBuilder
     var answers: some View {
         ForEach(0..<numberOfAnswers, id: \.self) { numKey in
-            SmallAnswer(numKey + 1, rmAction: minusSmallAnswer)
+            SmallAnswer(answerNo: numKey + 1)
         }
     }
 
@@ -113,5 +72,6 @@ struct WriteQnA: View {
 #Preview {
     WriteQnA()
         .environmentObject(ThemeColor())
-        .background(Color.gray)
+//        .padding(.horizontal)
+//        .background(Color.gray)
 }

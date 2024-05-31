@@ -10,8 +10,41 @@ import Foundation
 public struct Quiz: Equatable, Codable {
 
     public var name: String
-    public var creationDate: Date?
     public var qnas: [QnA]
+
+    public var creationDate: Date?
+
+    public init(name: String, qnas: [QnA], creationDate: Date? = nil) {
+        self.name = name
+        self.qnas = qnas
+        self.creationDate = creationDate
+    }
+
+    public static var `default`: Self {
+        Self.init(
+            name: "기본 퀴즈 예시",
+            qnas: [
+                QnA(
+                    question: "1번 질문 ?",
+                    answers: [
+                        "1번 소문항 답",
+                        "2번 소문항 답"
+                    ]
+                ),
+                QnA(
+                    question: "2번 질문 ?",
+                    answers: [
+                        "1번 소문항 답",
+                        "2번 소문항 답",
+                        "3번 소문항 답",
+                        "4번 소문항 답",
+                        "5번 소문항 답"
+                    ]
+                )
+            ],
+            creationDate: .now
+        )
+    }
 
     enum CodingKeys: CodingKey {
         case name
@@ -19,44 +52,18 @@ public struct Quiz: Equatable, Codable {
         case qnas
     }
 
-    public static var `default`: Self {
-        Self.init(
-            name: "기본 예제",
-            creationDate: .now,
-            qnas: [
-                QnA(question: "01. 1번 문제 ㅋㅋ",
-                    answers: [
-                        1: "1번의 소문제 1번의 답",
-                        2: "1번의 소문제 2번의 답"
-                    ]),
-                QnA(question: "02. 2번 문제 ㅎㅎ",
-                    answers: [
-                        1: "2번의 소문제 1번의 답",
-                        2: "2번의 소문제 2번의 답",
-                        3: "2번의 소문제 3번의 답"
-                    ])
-            ]
-        )
-    }
-
-    public init(name: String, creationDate: Date? = nil, qnas: [QnA]) {
-        self.name = name
-        self.creationDate = creationDate
-        self.qnas = qnas
-    }
-
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Quiz.CodingKeys> = try decoder.container(keyedBy: Quiz.CodingKeys.self)
-
+        
         self.name = try container.decode(String.self, forKey: Quiz.CodingKeys.name)
         self.creationDate = try container.decodeIfPresent(Date.self, forKey: Quiz.CodingKeys.creationDate)
         self.qnas = try container.decode([QnA].self, forKey: Quiz.CodingKeys.qnas)
-
+        
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         var container: KeyedEncodingContainer<Quiz.CodingKeys> = encoder.container(keyedBy: Quiz.CodingKeys.self)
-
+        
         try container.encode(self.name, forKey: Quiz.CodingKeys.name)
         try container.encodeIfPresent(self.creationDate, forKey: Quiz.CodingKeys.creationDate)
         try container.encode(self.qnas, forKey: Quiz.CodingKeys.qnas)

@@ -47,7 +47,7 @@ struct WriteQuiz: View {
         ForEach(0..<numberOfQuestion, id: \.self) { numKey in
             WriteQnA(numKey + 1)
                 .padding(.vertical)
-                .background(.white)
+                .background(.gray)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .id(numKey)
         }
