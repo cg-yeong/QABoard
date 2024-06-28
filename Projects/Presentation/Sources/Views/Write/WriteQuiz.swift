@@ -11,31 +11,25 @@ import SwiftUI
 struct WriteQuiz: View {
     @EnvironmentObject var theme: ThemeColor
     @State var numberOfQuestion = 1
-
+    @State private var isEditingQuiz = false
     var body: some View {
         ScrollViewReader { _ in
             ScrollView(.vertical) {
-                Spacer()
                 quiz
+                Spacer()
                 HStack {
                     Button(action: {
                         addQnA()
                     }, label: {
-                        Spacer()
-                        Image(systemName: "plus.circle")
-                            .tint(.indigo)
-                        Spacer()
-                    })
-
-                    Button(action: {
-                        subsQnA()
-                    }, label: {
-                        Spacer()
-                        Image(systemName: "minus.circle")
-                            .tint(.indigo)
-                        Spacer()
+                        NewQuestion()
                     })
                 }
+                .padding(.horizontal)
+                Button(action: {
+                    isEditingQuiz.toggle()
+                }, label: {
+                    Text("Button")
+                })
                 .padding(.horizontal)
             }
         }
@@ -46,10 +40,9 @@ struct WriteQuiz: View {
     var quiz: some View {
         ForEach(0..<numberOfQuestion, id: \.self) { numKey in
             WriteQnA(numKey + 1)
-                .padding(.vertical)
-                .background(.gray)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .id(numKey)
+                .wiggling(isEditingQuiz)
         }
     }
 

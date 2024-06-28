@@ -24,11 +24,19 @@ extension View {
     }
 }
 
-
-
 extension View {
     func asSmallAnswerEditor() -> some View {
         modifier(SmallAnswerTextEditor())
+    }
+
+    @ViewBuilder
+    func wiggling(amount: Double = 2, _ isActive: Bool = true) -> some View {
+        if isActive {
+            modifier(WiggleModifier(amount: amount))
+        } else {
+            self
+        }
+
     }
 }
 

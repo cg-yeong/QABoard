@@ -22,6 +22,21 @@ struct WriteQnA: View {
     }
 
     var body: some View {
+
+        HStack {
+            Spacer()
+            Button {
+
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.title3)
+                    .tint(.white)
+                    .padding(8)
+                    .background(.black)
+                    .clipShape(Circle())
+            }
+        }
+
         VStack(alignment: .leading) {
             HStack {
                 Text(questionNumber.toQNumkey)
@@ -69,9 +84,43 @@ struct WriteQnA: View {
     }
 }
 
+struct NewQuestion: View {
+    @EnvironmentObject var theme: ThemeColor
+
+    var body: some View {
+        VStack(alignment: .center) {
+            HStack {
+                Text(Image(systemName: "plus.circle"))
+                    .font(.title2.bold())
+                    .foregroundColor(theme.chosen.questionNumber)
+
+                Text("Add New Question +++")
+                    .font(.title2.bold())
+                    .foregroundColor(.blue)
+                    .frame(minHeight: 44, maxHeight: .infinity)
+                    .background(.black.opacity(0.01))
+                    .asSmallAnswerEditor()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+
+        }
+        .padding(.horizontal)
+        .background(.secondary)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+}
+
 #Preview {
-    WriteQnA()
-        .environmentObject(ThemeColor())
-//        .padding(.horizontal)
-//        .background(Color.gray)
+    ZStack {
+        Color.green.opacity(0.1).ignoresSafeArea()
+
+        VStack {
+            WriteQnA()
+                .environmentObject(ThemeColor())
+
+            NewQuestion()
+                .environmentObject(ThemeColor())
+        }
+
+    }
 }
