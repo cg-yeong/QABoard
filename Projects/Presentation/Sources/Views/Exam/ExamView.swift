@@ -8,66 +8,34 @@
 import SwiftUI
 import Domain
 
-/// AnswerView? .Modifier Answer?
-
-struct AnswerView: View {
-    var text: String
-    var backgroundColor: Color = .gray
-
-    var body: some View {
-        ZStack {
-            Text(text)
-                .background()
-                .padding()
-        }
-        .background(backgroundColor)
-
-    }
-
-}
-
-struct QuestionAnswersView: View {
-    var body: some View {
-
-        VStack(alignment: .leading) {
-            Text("0N. Question ???")
-            Divider()
-            AnswerView(text: "01- Answer 1")
-            AnswerView(text: "01- Answer 2")
-            AnswerView(text: "01- Answer 3")
-        }
-        .background(.brown)
-        .padding()
-
-    }
-}
-
-struct QuizView: View {
-
-    var quiz: Domain.Quiz
-
-    var body: some View {
-        Text("01. ABC의 C다C 게임은 ?")
-        Text("01 - 1 번의 답")
-
-    }
-
-    func getQnA(quiz: Quiz) {
-        let qnas = quiz.qnas
-        qnas.forEach { _ in
-//            qna.
-        }
-    }
-}
-
 struct ExamView: View {
+
+    @StateObject var container: MVIContainer<ExamIntent, ExamModelStateProtocol>
+
     var body: some View {
-        Text("exam")
+//        ExamQuiz(quiz: <#T##Quiz#>)
+        Text("asfd")
+            .padding()
+            .onAppear {
+                self.container.intent.viewOnAppear()
+            }
+    }
+}
+
+extension ExamView {
+    static func build() -> some View {
+        let model = ExamModel()
+        let intent = ExamIntent(model: model)
+        let container = MVIContainer(
+            intent: intent,
+            model: model as ExamModelStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+
+        return ExamView(container: container)
     }
 }
 
 #Preview {
-//    ExamView()
-//    QuizView(quiz: Quiz.default)
-    QuestionAnswersView()
+    ExamView.build()
 }

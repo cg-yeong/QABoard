@@ -32,11 +32,13 @@ struct ExamQnA: View {
 
                 Text(question)
                     .font(.title3.bold())
+                    .foregroundStyle(.black)
             }
 
             setAnswers(count: aCount)
         }
         .padding()
+        .background(.white)
     }
 
     func setAnswers(count answers: Int) -> some View {
@@ -50,6 +52,6 @@ struct ExamQnA: View {
     ExamQnA(
         qNum: 1,
         question: "안녕하세요 오늘 날짜는? ㅋㅋ",
-        aCount: 5
+        aCount: 10
     )
 }

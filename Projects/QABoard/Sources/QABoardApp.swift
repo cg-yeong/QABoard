@@ -49,6 +49,5 @@ struct TestLabel: View {
 }
 
 #Preview {
-    TestLabel()
-        .environmentObject(ThemeColor())
+    ContentView()
 }

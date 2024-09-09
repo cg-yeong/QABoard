@@ -31,6 +31,7 @@ public struct QnaTabView: View {
                 ParallaxCarousel().tag(QneiTab.library)
                 Text("Memorize").tag(QneiTab.memorize)
                 WriteFeature().tag(QneiTab.write)
+                
                 Text("Exam").tag(QneiTab.exam)
             })
             .padding(.bottom, -50)

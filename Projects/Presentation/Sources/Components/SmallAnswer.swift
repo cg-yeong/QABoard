@@ -30,6 +30,7 @@ struct SmallAnswer: View, Answer {
     var body: some View {
         HStack(alignment: subTitle.isEmpty ? .center : .top) {
             Text(answerNo.toANumKey)
+                .foregroundColor(.black)
 
             VStack(alignment: .leading, spacing: 0) {
                 if !subTitle.isEmpty {
@@ -38,6 +39,7 @@ struct SmallAnswer: View, Answer {
                 answerField
             }
         }
+        .background(.white)
     }
 
     @ViewBuilder

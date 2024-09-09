@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct WriteQuiz: View {
-    @EnvironmentObject var theme: ThemeColor
     @State var numberOfQuestion = 1
     @State private var isEditingQuiz = false
     var body: some View {
@@ -39,7 +38,7 @@ struct WriteQuiz: View {
     @ViewBuilder
     var quiz: some View {
         ForEach(0..<numberOfQuestion, id: \.self) { numKey in
-            WriteQnA(numKey + 1)
+            WriteQnA(numKey + 1, editMode: .constant(false))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .id(numKey)
                 .wiggling(isEditingQuiz)
@@ -61,7 +60,9 @@ struct WriteQuiz: View {
 }
 
 #Preview {
-    WriteQuiz()
-        .background(.green)
-        .environmentObject(ThemeColor())
+    ZStack {
+        Color.green.opacity(1)
+            .ignoresSafeArea()
+        WriteQuiz()
+    }
 }

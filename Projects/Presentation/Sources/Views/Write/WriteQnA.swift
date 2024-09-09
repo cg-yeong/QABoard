@@ -11,37 +11,25 @@ import SwiftUI
 import DesignSystem
 
 struct WriteQnA: View {
-    @EnvironmentObject var theme: ThemeColor
     var questionNumber = 1
     @State var question = ""
     @State var number: AnswerNumberKey = .one
     @State var numberOfAnswers = 1
 
-    init(_ questionNumber: Int = 1) {
+    @Binding var editMode: Bool
+
+    init(_ questionNumber: Int = 1,
+         editMode: Binding<Bool>) {
         self.questionNumber = questionNumber
+        self._editMode = editMode
     }
 
     var body: some View {
-
-        HStack {
-            Spacer()
-            Button {
-
-            } label: {
-                Image(systemName: "xmark")
-                    .font(.title3)
-                    .tint(.white)
-                    .padding(8)
-                    .background(.black)
-                    .clipShape(Circle())
-            }
-        }
-
         VStack(alignment: .leading) {
             HStack {
                 Text(questionNumber.toQNumkey)
                     .font(.title.bold())
-                    .foregroundColor(theme.chosen.questionNumber)
+                    .foregroundColor(Color(redF: 0, greenF: 0, blueF: 139))
                 TextEditor(text: $question)
                     .transparentScrolling()
                     .font(.title2.bold())
@@ -59,7 +47,23 @@ struct WriteQnA: View {
         }
         .padding()
         .background(.white)
+        .padding()
         .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay(alignment: .topTrailing) {
+            if editMode {
+                Button {
+
+                } label: {
+                    Image(systemName: "minus")
+                        .font(.body)
+                        .tint(.primary)
+                        .padding(12)
+                        .background(.ultraThickMaterial)
+                        .clipShape(Circle())
+                }
+            }
+
+        }
 
     }
 
@@ -85,14 +89,13 @@ struct WriteQnA: View {
 }
 
 struct NewQuestion: View {
-    @EnvironmentObject var theme: ThemeColor
 
     var body: some View {
         VStack(alignment: .center) {
             HStack {
                 Text(Image(systemName: "plus.circle"))
                     .font(.title2.bold())
-                    .foregroundColor(theme.chosen.questionNumber)
+                    .foregroundColor(Color(redF: 0, greenF: 0, blueF: 139))
 
                 Text("Add New Question +++")
                     .font(.title2.bold())
@@ -115,11 +118,9 @@ struct NewQuestion: View {
         Color.green.opacity(0.1).ignoresSafeArea()
 
         VStack {
-            WriteQnA()
-                .environmentObject(ThemeColor())
+            WriteQnA(editMode: .constant(true))
 
             NewQuestion()
-                .environmentObject(ThemeColor())
         }
 
     }

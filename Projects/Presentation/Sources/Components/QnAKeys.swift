@@ -38,8 +38,8 @@ enum AnswerNumberKey: Int, RawRepresentable {
     }
     var key: String {
         switch self {
-        case .one: return "①"
-        case .two: return "②"
+        case .one: return "①" //U+2460 ~ 20: 2473
+        case .two: return "②" // U+2461
         case .three: return "③"
         case .four: return "④"
         case .five: return "⑤"
