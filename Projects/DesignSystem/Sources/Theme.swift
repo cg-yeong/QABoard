@@ -16,6 +16,8 @@ public protocol ThemeProperties {
     var answerNumberBackground: Color { get }
     var answer: Color { get }
     var correctAnswer: Color { get }
+    var corrected: Color { get }
+    var wronged: Color { get }
 }
 
 public enum Theme: ThemeProperties {
@@ -69,6 +71,20 @@ public enum Theme: ThemeProperties {
         switch self {
         case .default: .black
         case .yeong: Color(hex: "#222222")
+        }
+    }
+
+    public var corrected: Color {
+        switch self {
+        case .default: Color(hex: "#2fb880")
+        case .yeong: Color(hex: "#2fb880")
+        }
+    }
+
+    public var wronged: Color {
+        switch self {
+        case .default: Color(hex: "#ea3829")
+        case .yeong: Color(hex: "#ea3829")
         }
     }
 }

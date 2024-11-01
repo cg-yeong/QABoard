@@ -24,16 +24,19 @@ let settings: Settings = .settings(
 let scripts: [TargetScript] = [.swiftLint]
 
 let targets: [Target] = [
-    Target(
+    Target.target(
         name: QABoardEnv.targetName,
-        destinations: .iOS,
+        destinations: [.iPhone],
         product: .app,
-        productName: QABoardEnv.appName,
         bundleId: "\(QABoardEnv.organizationName).\(QABoardEnv.targetName)",
         deploymentTargets: QABoardEnv.deploymentTargets,
         infoPlist: .file(path: .relativeToRoot("Support/QABoard-Info.plist")),
-        sources: ["Sources/**"],
-        resources: ["Resources/**"],
+        sources: [.glob(.relativeToManifest("Sources/**"))],
+        resources: [
+            .glob(pattern: .relativeToManifest("Resources/**"),
+                  excluding: [])
+        ],
+        headers: nil,
         entitlements: .file(path: .relativeToRoot("Support/\(QABoardEnv.appName).entitlements")),
         scripts: scripts,
         dependencies: [
@@ -45,10 +48,11 @@ let targets: [Target] = [
         settings: .settings(
             base: QABoardEnv.baseSetting,
             configurations: [.debug(name: .debug), .release(name: .release)]
-        )
+        ),
+        launchArguments: []
     ),
 
-    Target(
+    Target.target(
         name: QABoardEnv.targetTestName,
         destinations: .iOS,
         product: .unitTests,
@@ -61,26 +65,8 @@ let targets: [Target] = [
 ]
 
 let schemes: [Scheme] = [
-    .init(
-        name: "\(QABoardEnv.targetName)-DEBUG",
-        shared: true,
-        buildAction: .buildAction(targets: ["\(QABoardEnv.targetName)"]),
-        testAction: .targets(["\(QABoardEnv.targetName)"]),
-        runAction: .runAction(configuration: .debug),
-        archiveAction: .archiveAction(configuration: .debug),
-        profileAction: .profileAction(configuration: .debug),
-        analyzeAction: .analyzeAction(configuration: .debug)
-    ),
-    .init(
-        name: "\(QABoardEnv.targetName)-RELEASE",
-        shared: true,
-        buildAction: .buildAction(targets: ["\(QABoardEnv.targetName)"]),
-        testAction: nil,
-        runAction: .runAction(configuration: .debug),
-        archiveAction: .archiveAction(configuration: .release),
-        profileAction: .profileAction(configuration: .release),
-        analyzeAction: .analyzeAction(configuration: .release)
-    )
+    Scheme.scheme(name: "DEBUG"),
+    Scheme.scheme(name: "RELEASE")
 ]
 
 let project: Project = .init(

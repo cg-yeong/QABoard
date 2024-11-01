@@ -1,20 +1,19 @@
 //
-//  ROTextEditorView.swift
+//  MemorizeFeature.swift
 //  Presentation
 //
-//  Created by root0 on 2024/01/31.
+//  Created by root0 on 9/24/24.
 //  Copyright © 2024 com.raoot0. All rights reserved.
 //
 
 import SwiftUI
 
-struct ROTextEditorView: View {
-
+struct MemorizeFeature: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    ROTextEditorView()
+    MemorizeFeature()
 }

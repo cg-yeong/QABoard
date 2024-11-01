@@ -23,12 +23,31 @@ struct QABoardApp: SwiftUI.App {
 
 struct ContentView: View {
 	var body: some View {
-		QnaTabView()
-            .ignoresSafeArea()
+        QnaTabView(activeTab: .library)
 	}
 }
 
+struct TestLabel: View {
+    var body: some View {
+        Label(
+            title: {
+                Text("Slanje seksualno eksplicitno ili neprikladno\nporuke su strogo zabranjene i mogu rezultirati\nsuspenzija ili ukidanje računa.")
+                    .font(.system(size: 13.0, weight: .medium))
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(Color(white: 112.0 / 255.0))
+            },
+            icon: {
+                PresentationAsset.icoCaution70.swiftUIImage
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .padding(.trailing, -18)
+//                    .padding(.leading, 20)
+
+            }
+        )
+    }
+}
+
 #Preview {
-	ContentView()
-        .environmentObject(ThemeColor())
+    ContentView()
 }

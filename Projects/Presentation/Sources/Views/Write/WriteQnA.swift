@@ -10,80 +10,108 @@ import SwiftUI
 
 import DesignSystem
 
-struct SmallAnswer: View {
-    var answerNo = 1
-    @State var answer: String = ""
-
-    var removeSmallAnswer: (() -> Void)!
-    init(_ answerNo: Int = 1, rmAction: @escaping (() -> Void) = {}) {
-        self.answerNo = answerNo
-        self.removeSmallAnswer = rmAction
-    }
-
-    var body: some View {
-        HStack(alignment: .center) {
-            Text(answerNo.toANumKey)
-            TextEditor(text: $answer)
-                .font(.system(size: 14))
-                .frame(minHeight: 36, maxHeight: 80)
-                .foregroundColor(.black)
-                .asSmallAnswerEditor()
-                .background(.brown.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-            if !answer.isEmpty {
-                Button(action: {
-                    answer = ""
-                }, label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
-                        .padding(.trailing)
-                })
-            }
-        }
-        .padding(.leading)
-    }
-}
-
 struct WriteQnA: View {
-    @EnvironmentObject var theme: ThemeColor
     var questionNumber = 1
     @State var question = ""
     @State var number: AnswerNumberKey = .one
     @State var numberOfAnswers = 1
 
-    init(_ questionNumber: Int = 1) {
+    @Binding var editMode: Bool
+
+    init(_ questionNumber: Int = 1,
+         editMode: Binding<Bool>) {
         self.questionNumber = questionNumber
+        self._editMode = editMode
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .top) {
                 Text(questionNumber.toQNumkey)
                     .font(.title.bold())
-                    .foregroundColor(theme.chosen.questionNumber)
+                    .foregroundColor(Color(redF: 0, greenF: 0, blueF: 139))
+                    .padding(.top, 4)
                 TextEditor(text: $question)
+                    .transparentScrolling()
                     .font(.title2.bold())
                     .foregroundColor(.blue)
                     .frame(minHeight: 44, maxHeight: .infinity)
                     .background(question.isEmpty ? .black.opacity(0.05) : .black.opacity(0.01))
                     .asSmallAnswerEditor()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+//                    .scrollIndicators(.hidden)
+
             }
 
             answers
                 .padding(.leading)
+
+            appendAnswer
+//                .padding(.leading)
+
         }
-        .background(.white)
         .padding()
+        .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 8))
+//        .overlay(alignment: .topTrailing) {
+//            if editMode {
+//                Button {
+//
+//                } label: {
+//                    Image(systemName: "minus")
+//                        .font(.body)
+//                        .tint(.primary)
+//                        .padding(12)
+//                        .background(.ultraThickMaterial)
+//                        .clipShape(Circle())
+//                }
+//            }
+//
+//        }
 
     }
 
     @ViewBuilder
     var answers: some View {
         ForEach(0..<numberOfAnswers, id: \.self) { numKey in
-            SmallAnswer(numKey + 1, rmAction: minusSmallAnswer)
+            SmallAnswer(answerNo: numKey + 1)
         }
+    }
+
+    @ViewBuilder
+    var appendAnswer: some View {
+        HStack {
+            Button {
+
+            } label: {
+                HStack {
+                    Image(systemName: "minus.circle")
+                        .font(.system(size: 14))
+                        .tint(.gray)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .frame(height: 36)
+                .background(.brown.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+
+            Button {
+
+            } label: {
+                HStack {
+                    Image(systemName: "plus.circle")
+                        .font(.system(size: 14))
+                        .tint(.gray)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .frame(height: 36)
+                .background(.brown.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+        }
+        .padding(.leading)
     }
 
     func addSmallAnswer() {
@@ -100,8 +128,40 @@ struct WriteQnA: View {
     }
 }
 
+struct NewQuestion: View {
+
+    var body: some View {
+        VStack(alignment: .center) {
+            HStack {
+                Text(Image(systemName: "plus.circle"))
+                    .font(.title2.bold())
+                    .foregroundColor(Color(redF: 0, greenF: 0, blueF: 139))
+
+                Text("Add New Question +++")
+                    .font(.title2.bold())
+                    .foregroundColor(.blue)
+                    .frame(minHeight: 44, maxHeight: .infinity)
+                    .background(.black.opacity(0.01))
+                    .asSmallAnswerEditor()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+
+        }
+        .padding(.horizontal)
+        .background(.secondary)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+}
+
 #Preview {
-    WriteQnA()
-        .environmentObject(ThemeColor())
-        .background(Color.gray)
+    ZStack {
+        Color.green.opacity(0.1).ignoresSafeArea()
+
+        VStack {
+            WriteQnA(editMode: .constant(true))
+
+            NewQuestion()
+        }
+
+    }
 }

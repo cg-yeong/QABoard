@@ -8,4 +8,8 @@ force_try:
 
 opt_in_rules:
   - empty_count
-  
+
+identifier_name:
+  min_length:
+    warning: 4
+

@@ -18,12 +18,15 @@ struct ParallaxCarousel: View {
 
     @State private var searchText: String = ""
 
+    init() {
+
+    }
+
     var body: some View {
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 15) {
                 HStack(spacing: 12) {
                     Button {
-                        
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .font(.title)
@@ -59,11 +62,12 @@ struct ParallaxCarousel: View {
             }
             .padding(15)
         }
+
     }
 
     @ViewBuilder
     func tripCardScrollView(_ size: CGSize) -> some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 5) {
                 ForEach(tripCards) { card in
                     /// 카드를 역방향 시차 효과로 이동시키기 위해

@@ -8,14 +8,18 @@
 
 import SwiftUI
 
+// MARK: View~Path+
 extension View {
-    func transparentScrolling() -> some View {
-        if #available(iOS 16.0, *) {
-            return scrollContentBackground(.hidden)
-        } else {
-            return onAppear(perform: {
-                UITextView.appearance().backgroundColor = .clear
-            })
+    @ViewBuilder
+    func viewPosition(completion: @escaping (CGRect) -> Void) -> some View {
+        self.overlay {
+            GeometryReader {
+                let rect = $0.frame(in: .global)
+
+                Color.clear
+                    .preference(key: PositionKey.self, value: rect)
+                    .onPreferenceChange(PositionKey.self, perform: completion)
+            }
         }
     }
 }
@@ -23,6 +27,16 @@ extension View {
 extension View {
     func asSmallAnswerEditor() -> some View {
         modifier(SmallAnswerTextEditor())
+    }
+
+    @ViewBuilder
+    func wiggling(amount: Double = 2, _ isActive: Bool = true) -> some View {
+        if isActive {
+            modifier(WiggleModifier(amount: amount))
+        } else {
+            self
+        }
+
     }
 }
 
