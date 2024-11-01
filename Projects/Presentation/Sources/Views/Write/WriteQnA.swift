@@ -26,10 +26,11 @@ struct WriteQnA: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .top) {
                 Text(questionNumber.toQNumkey)
                     .font(.title.bold())
                     .foregroundColor(Color(redF: 0, greenF: 0, blueF: 139))
+                    .padding(.top, 4)
                 TextEditor(text: $question)
                     .transparentScrolling()
                     .font(.title2.bold())
@@ -44,26 +45,29 @@ struct WriteQnA: View {
 
             answers
                 .padding(.leading)
+
+            appendAnswer
+//                .padding(.leading)
+
         }
         .padding()
         .background(.white)
-        .padding()
         .clipShape(RoundedRectangle(cornerRadius: 8))
-        .overlay(alignment: .topTrailing) {
-            if editMode {
-                Button {
-
-                } label: {
-                    Image(systemName: "minus")
-                        .font(.body)
-                        .tint(.primary)
-                        .padding(12)
-                        .background(.ultraThickMaterial)
-                        .clipShape(Circle())
-                }
-            }
-
-        }
+//        .overlay(alignment: .topTrailing) {
+//            if editMode {
+//                Button {
+//
+//                } label: {
+//                    Image(systemName: "minus")
+//                        .font(.body)
+//                        .tint(.primary)
+//                        .padding(12)
+//                        .background(.ultraThickMaterial)
+//                        .clipShape(Circle())
+//                }
+//            }
+//
+//        }
 
     }
 
@@ -72,6 +76,42 @@ struct WriteQnA: View {
         ForEach(0..<numberOfAnswers, id: \.self) { numKey in
             SmallAnswer(answerNo: numKey + 1)
         }
+    }
+
+    @ViewBuilder
+    var appendAnswer: some View {
+        HStack {
+            Button {
+
+            } label: {
+                HStack {
+                    Image(systemName: "minus.circle")
+                        .font(.system(size: 14))
+                        .tint(.gray)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .frame(height: 36)
+                .background(.brown.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+
+            Button {
+
+            } label: {
+                HStack {
+                    Image(systemName: "plus.circle")
+                        .font(.system(size: 14))
+                        .tint(.gray)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .frame(height: 36)
+                .background(.brown.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+        }
+        .padding(.leading)
     }
 
     func addSmallAnswer() {

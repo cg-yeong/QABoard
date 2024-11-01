@@ -16,20 +16,6 @@ struct WriteQuiz: View {
             ScrollView(.vertical) {
                 quiz
                 Spacer()
-                HStack {
-                    Button(action: {
-                        addQnA()
-                    }, label: {
-                        NewQuestion()
-                    })
-                }
-                .padding(.horizontal)
-                Button(action: {
-                    isEditingQuiz.toggle()
-                }, label: {
-                    Text("Button")
-                })
-                .padding(.horizontal)
             }
         }
 
@@ -61,7 +47,7 @@ struct WriteQuiz: View {
 
 #Preview {
     ZStack {
-        Color.green.opacity(1)
+        Color.gray.opacity(1)
             .ignoresSafeArea()
         WriteQuiz()
     }

@@ -10,7 +10,20 @@ import SwiftUI
 
 struct WriteFeature: View {
     var body: some View {
-        Text("Write Exam, Quiz")
+
+        WriteQuiz(numberOfQuestion: 3)
+            .overlay(alignment: .bottomTrailing) {
+                Button {
+
+                } label: {
+                    Color.pink
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                }
+                .padding(.horizontal)
+            }
+
+
     }
 }
 
