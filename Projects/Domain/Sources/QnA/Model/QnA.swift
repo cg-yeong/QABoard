@@ -37,6 +37,13 @@ public struct QnA: Equatable, Codable {
         try container.encode(self.answers, forKey: QnA.CodingKeys.answers)
     }
 
+    public static var empty: Self {
+        Self.init(question: "", answers: [])
+    }
+
+    public static var `default`: Self {
+        Self.init(question: "Q", answers: ["Answer 1", "Answer 2", "Answer 3", "..."])
+    }
 }
 
 

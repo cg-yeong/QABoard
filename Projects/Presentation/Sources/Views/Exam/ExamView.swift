@@ -13,12 +13,12 @@ struct ExamView: View {
     @StateObject var container: MVIContainer<ExamIntent, ExamModelStateProtocol>
 
     var body: some View {
-//        ExamQuiz(quiz: <#T##Quiz#>)
-        Text("asfd")
-            .padding()
-            .onAppear {
-                self.container.intent.viewOnAppear()
-            }
+        ExamQuiz(quiz: Quiz.default)
+//        Text("asfd")
+//            .padding()
+//            .onAppear {
+//                self.container.intent.viewOnAppear()
+//            }
     }
 }
 

@@ -18,17 +18,20 @@ struct ExamQuiz: View {
     var quiz: Quiz
 
     var body: some View {
-        Text(quiz.name)
-            .font(.title.bold())
+        VStack {
+            Text(quiz.name)
+                .font(.title.bold())
 
-        ForEach(quiz.qnas.indices, id: \.self) { index in
-            ExamQnA(qNum: index + 1, question: quiz.qnas[index].question, aCount: quiz.qnas[index].answers.count)
+            ForEach(quiz.qnas.indices, id: \.self) { index in
+                ExamQnA(qNum: index + 1, question: quiz.qnas[index].question, aCount: quiz.qnas[index].answers.count)
+            }
         }
+
     }
 }
 
 #Preview {
-    ExamQuiz(quiz: Quiz(name: "퀴즈", qnas: [
+    ExamQuiz(quiz: Quiz(name: "zz", qnas: [
         QnA(question: "wlfans1", answers: ["wjdekq2", "wjdekq1"]),
         QnA(question: "wlfans1", answers: ["wjdekq2", "wjdekq1", "wjdekq3"])
     ]))

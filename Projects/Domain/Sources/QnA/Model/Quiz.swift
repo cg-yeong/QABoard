@@ -46,6 +46,10 @@ public struct Quiz: Equatable, Codable {
         )
     }
 
+    public static var empty: Self {
+        Self.init(name: "", qnas: [])
+    }
+
     enum CodingKeys: CodingKey {
         case name
         case creationDate
