@@ -30,17 +30,15 @@ struct MemorizeCard: View {
                     .foregroundStyle(.black)
             }
 
-
             ForEach(qna.answers.indices, id: \.self) { index in
 
-
                 HStack(alignment: .center) {
-                    Text((index + 1).toANumKey)
+                    Text("\((index + 1).toANumKey)")
                         .foregroundStyle(.black)
 
                     // answer label
                     HStack(alignment: .center) {
-                        Text(qna.answers[index])
+                        Text(qna.answers[index].answer)
                             .font(.system(size: 14))
                             .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
                             .foregroundColor(.black)

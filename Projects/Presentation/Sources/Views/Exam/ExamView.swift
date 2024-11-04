@@ -64,20 +64,24 @@ struct ExamView: View {
 
             }
         case .score:
-            
-            HStack {
-                Image(systemName: "pencil.and.outline")
-                    .symbolRenderingMode(.monochrome)
-                    .foregroundStyle(.red)
-                    .font(.title)
-                Text("Score Exam Results")
-                    .font(.title3)
-                Image(systemName: "line.diagonal")
-                    .symbolRenderingMode(.monochrome)
-                    .foregroundStyle(.red)
-                    .font(.title)
-                    .rotationEffect(.degrees(-15))
+            ScrollView {
+                HStack {
+                    Image(systemName: "pencil.and.outline")
+                        .symbolRenderingMode(.monochrome)
+                        .foregroundStyle(.red)
+                        .font(.title)
+                    Text("Score Exam Results")
+                        .font(.title3)
+                    Image(systemName: "line.diagonal")
+                        .symbolRenderingMode(.monochrome)
+                        .foregroundStyle(.red)
+                        .font(.title)
+                        .rotationEffect(.degrees(-15))
+                }
+
+                ExamQuiz(quiz: Quiz.scoreDefault)
             }
+
         }
     }
 }

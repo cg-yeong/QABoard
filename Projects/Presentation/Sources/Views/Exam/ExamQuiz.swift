@@ -23,7 +23,10 @@ struct ExamQuiz: View {
                 .font(.title.bold())
 
             ForEach(quiz.qnas.indices, id: \.self) { index in
-                ExamQnA(qNum: index + 1, question: quiz.qnas[index].question, aCount: quiz.qnas[index].answers.count)
+                ExamQnA(qNum: index + 1,
+                        question: quiz.qnas[index].question,
+                        aCount: quiz.qnas[index].answers.count,
+                        status:  quiz.qnas[index].status)
             }
         }
 
@@ -32,7 +35,7 @@ struct ExamQuiz: View {
 
 #Preview {
     ExamQuiz(quiz: Quiz(name: "zz", qnas: [
-        QnA(question: "wlfans1", answers: ["wjdekq2", "wjdekq1"]),
-        QnA(question: "wlfans1", answers: ["wjdekq2", "wjdekq1", "wjdekq3"])
+        QnA(question: "wlfans1", answers: [Answer("1")]),
+//        QnA(question: "wlfans1", answers: ["wjdekq2", "wjdekq1", "wjdekq3"])
     ]))
 }

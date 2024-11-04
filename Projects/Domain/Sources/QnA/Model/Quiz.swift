@@ -27,39 +27,89 @@ public struct Quiz: Equatable, Codable {
                 QnA(
                     question: "1번 질문 ?",
                     answers: [
-                        "1번 소문항 답",
-                        "2번 소문항 답"
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답")
                     ]
                 ),
                 QnA(
                     question: "2번 질문 ?",
                     answers: [
-                        "1번 소문항 답",
-                        "2번 소문항 답",
-                        "3번 소문항 답",
-                        "4번 소문항 답",
-                        "5번 소문항 답"
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답"),
+                        Answer("3번 소문항 답"),
+                        Answer("4번 소문항 답"),
+                        Answer("5번 소문항 답")
                     ]
                 ),
                 QnA(
                     question: "3번 질문 ?",
                     answers: [
-                        "1번 소문항 답",
-                        "2번 소문항 답",
-                        "3번 소문항 답",
-                        "4번 소문항 답",
-                        "5번 소문항 답"
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답"),
+                        Answer("3번 소문항 답"),
+                        Answer("4번 소문항 답"),
+                        Answer("5번 소문항 답")
                     ]
                 ),
                 QnA(
                     question: "4번 질문 ?",
                     answers: [
-                        "1번 소문항 답",
-                        "2번 소문항 답",
-                        "3번 소문항 답",
-                        "4번 소문항 답",
-                        "5번 소문항 답"
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답"),
+                        Answer("3번 소문항 답"),
+                        Answer("4번 소문항 답"),
+                        Answer("5번 소문항 답")
                     ]
+                )
+            ],
+            creationDate: .now
+        )
+    }
+
+    public static var scoreDefault: Self {
+        Self.init(
+            name: "기본 퀴즈 예시",
+            qnas: [
+                QnA(
+                    question: "1번 질문 ?",
+                    answers: [
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답")
+                    ],
+                    status: -1
+                ),
+                QnA(
+                    question: "2번 질문 ?",
+                    answers: [
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답"),
+                        Answer("3번 소문항 답"),
+                        Answer("4번 소문항 답"),
+                        Answer("5번 소문항 답")
+                    ],
+                    status: -1
+                ),
+                QnA(
+                    question: "3번 질문 ?",
+                    answers: [
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답"),
+                        Answer("3번 소문항 답"),
+                        Answer("4번 소문항 답"),
+                        Answer("5번 소문항 답")
+                    ],
+                    status: 1
+                ),
+                QnA(
+                    question: "4번 질문 ?",
+                    answers: [
+                        Answer("1번 소문항 답"),
+                        Answer("2번 소문항 답"),
+                        Answer("3번 소문항 답"),
+                        Answer("4번 소문항 답"),
+                        Answer("5번 소문항 답")
+                    ],
+                    status: 1
                 )
             ],
             creationDate: .now

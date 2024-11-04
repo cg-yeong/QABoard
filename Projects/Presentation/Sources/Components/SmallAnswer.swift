@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-protocol Answer {
+protocol AnswerField {
     var answerNo: Int { get set }
     var answer: String { get set }
 }
 
-struct SmallAnswer: View, Answer {
+struct SmallAnswer: View, AnswerField {
 
     var answerNo = 1
     var subTitle: String = ""
