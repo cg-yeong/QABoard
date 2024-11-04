@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 
+/// Reducer ? ViewStoreOf ?
 final class MVIContainer<Intent, Model>: ObservableObject {
     let intent: Intent
     let model: Model

@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-protocol Answer {
+protocol AnswerField {
     var answerNo: Int { get set }
     var answer: String { get set }
 }
 
-struct SmallAnswer: View, Answer {
+struct SmallAnswer: View, AnswerField {
 
     var answerNo = 1
     var subTitle: String = ""
@@ -28,9 +28,10 @@ struct SmallAnswer: View, Answer {
     }
 
     var body: some View {
-        HStack(alignment: subTitle.isEmpty ? .center : .top) {
+        HStack(alignment: subTitle.isEmpty ? .top : .top) {
             Text(answerNo.toANumKey)
                 .foregroundColor(.black)
+                .padding(.top, 8)
 
             VStack(alignment: .leading, spacing: 0) {
                 if !subTitle.isEmpty {
@@ -46,7 +47,6 @@ struct SmallAnswer: View, Answer {
     var answerField: some View {
         HStack(alignment: .center) {
             TextEditor(text: $answer)
-                .transparentScrolling()
                 .font(.system(size: 14))
                 .frame(minHeight: 36, maxHeight: 80)
                 .foregroundColor(.black)

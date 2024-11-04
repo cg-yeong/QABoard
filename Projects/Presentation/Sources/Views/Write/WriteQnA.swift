@@ -32,14 +32,12 @@ struct WriteQnA: View {
                     .foregroundColor(Color(redF: 0, greenF: 0, blueF: 139))
                     .padding(.top, 4)
                 TextEditor(text: $question)
-                    .transparentScrolling()
                     .font(.title2.bold())
                     .foregroundColor(.blue)
                     .frame(minHeight: 44, maxHeight: .infinity)
                     .background(question.isEmpty ? .black.opacity(0.05) : .black.opacity(0.01))
                     .asSmallAnswerEditor()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-//                    .scrollIndicators(.hidden)
 
             }
 
