@@ -10,7 +10,6 @@ import SwiftUI
 import DesignSystem
 
 struct ExamQnA: View {
-    
     var qNum = 1
     var question = ""
     var aCount = 1

@@ -11,10 +11,24 @@ import SwiftUI
 
 struct SmallAnswerTextEditor: ViewModifier {
     func body(content: Content) -> some View {
-        content
-            .lineSpacing(5)
-            .fixedSize(horizontal: false, vertical: true)
-            .autocorrectionDisabled()
+        if #available(iOS 16.0, *) {
+            content
+                .lineSpacing(5)
+                .fixedSize(horizontal: false, vertical: true)
+                .autocorrectionDisabled()
+                .scrollContentBackground(.hidden)
+                .scrollIndicators(.hidden)
+        } else {
+            content
+                .lineSpacing(5)
+                .fixedSize(horizontal: false, vertical: true)
+                .autocorrectionDisabled()
+                .onAppear {
+                    UITextView.appearance().backgroundColor = .clear
+                    UITextView.appearance().showsVerticalScrollIndicator = false
+                }
+        }
+
     }
 }
 

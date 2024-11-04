@@ -40,6 +40,26 @@ public struct Quiz: Equatable, Codable {
                         "4번 소문항 답",
                         "5번 소문항 답"
                     ]
+                ),
+                QnA(
+                    question: "3번 질문 ?",
+                    answers: [
+                        "1번 소문항 답",
+                        "2번 소문항 답",
+                        "3번 소문항 답",
+                        "4번 소문항 답",
+                        "5번 소문항 답"
+                    ]
+                ),
+                QnA(
+                    question: "4번 질문 ?",
+                    answers: [
+                        "1번 소문항 답",
+                        "2번 소문항 답",
+                        "3번 소문항 답",
+                        "4번 소문항 답",
+                        "5번 소문항 답"
+                    ]
                 )
             ],
             creationDate: .now

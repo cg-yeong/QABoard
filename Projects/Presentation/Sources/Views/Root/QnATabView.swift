@@ -28,14 +28,14 @@ public struct QnaTabView: View {
         VStack(spacing: 0) {
             TabView(selection: $activeTab,
                     content: {
-                ParallaxCarousel().tag(QneiTab.library)
-                Text("Memorize").tag(QneiTab.memorize)
-                WriteFeature().tag(QneiTab.write)
-                ExamQuiz(quiz: .default).tag(QneiTab.exam)
+//                ParallaxCarousel().tag(QneiTab.library)
+//                Text("Memorize").tag(QneiTab.memorize)
+//                WriteFeature().tag(QneiTab.write)
+                ExamView.build().tag(QneiTab.exam)
             })
-            .padding(.bottom, -50)
+            .padding(.bottom, 0)
 
-            makeQneiTabBar()
+//            makeQneiTabBar()
         }
     }
 
@@ -56,7 +56,7 @@ public extension QnaTabView {
     @ViewBuilder
     func makeQneiTabBar(_ tint: Color = .indigo, _ inactiveTint: Color = .gray) -> some View {
         HStack(alignment: .bottom, spacing: 0) {
-            ForEach(QneiTab.allCases, id: \.rawValue) { tab in
+            ForEach([QneiTab.exam], id: \.rawValue) { tab in
                 QneiTabItem(
                     tint: tint,
                     inactiveTint: inactiveTint,
@@ -95,6 +95,6 @@ struct LibraryView: View {
 }
 
 #Preview {
-    QnaTabView(activeTab: .write)
+    QnaTabView(activeTab: .exam)
         .environmentObject(ThemeColor())
 }

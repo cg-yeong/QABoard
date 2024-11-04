@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+protocol ExamIntentProtocol {
+    func viewOnAppear()
+    func changeContent(_ state: ExamState)
+}
+
+/// Action : Change State properties
 final class ExamIntent {
     private weak var model: ExamModelActionsProtocol?
 
@@ -15,7 +21,15 @@ final class ExamIntent {
         self.model = model
     }
 
+}
+
+extension ExamIntent: ExamIntentProtocol {
+
     func viewOnAppear() {
-//        model?.scoreWithCompare(<#T##answers: [[String]]##[[String]]#>)
+        model?.changeContent(.prev)
+    }
+
+    func changeContent(_ state: ExamState) {
+        model?.changeContent(state)
     }
 }
